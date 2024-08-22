@@ -1,0 +1,243 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    background-color: white;
+}
+
+header .logo-container {
+    display: flex;
+    align-items: center;
+}
+
+header .logo {
+    height: 50px;
+    width: auto;
+}
+
+main {
+    display: flex;
+    flex: 1;
+}
+
+.form-container {
+    width: 50%;
+    padding: 40px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+}
+
+.form-container label {
+    width: 100%;
+    text-align: left;
+    flex-direction: column;
+    font-size: 20px;
+}
+
+.logo-login {
+    margin-bottom: 20px;
+    height: 80px;
+    width: auto;
+    align-self: flex-start;
+}
+
+h1 {
+    margin-bottom: 30px;
+    font-size: 25px;
+    width: 63%;
+    text-align: left;
+}
+
+.form-container p {
+    font-size: 20px;
+    text-align: left;
+    flex-direction: column;
+}
+
+form {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+form label {
+    display: block;
+    margin-top: 10px;
+    font-size: 20px;
+    width: 100%;  /* Ensure labels take full width */
+    text-align: left;  /* Align text to the left */
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+form button {
+    width: 50%;  /* Adjust width as needed */
+    padding: 10px;
+    background-color: #B4A7D6;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+form button:hover {
+    background-color: #c58ae7;
+}
+
+.remember-forgot {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.remember-forgot a {
+    color: #000000;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.side-background {
+    width: 50%;
+    height: 100vh;
+    background: linear-gradient(to left, #B4A7D6, #F3E9FD, #ffffff);
+}
+
+
+/* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+    main {
+        flex-direction: column;
+    }
+
+    .form-container,
+    .side-background {
+        width: 100%;
+        height: auto;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+
+    .button-container {
+        width: 100%;
+    }
+
+    form button {
+        width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    .logo-login {
+        height: 60px;
+    }
+
+    form button {
+        width: 70%;
+    }
+
+    .button-container {
+        width: 100%;
+    }
+
+    .form-container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 22px;
+        width: 100%;
+        text-align: center;
+    }
+
+    form label {
+        font-size: 18px;
+    }
+
+    form input {
+        font-size: 16px;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-login {
+        height: 50px;
+    }
+
+    form button {
+        width: 100%;
+    }
+
+    .form-container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 20px;
+        width: 100%;
+        text-align: center;
+    }
+
+    form label {
+        font-size: 16px;
+    }
+
+    form input {
+        font-size: 14px;
+    }
+
+}
