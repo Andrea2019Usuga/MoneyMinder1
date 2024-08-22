@@ -7,10 +7,8 @@
     <link rel="stylesheet" href="/MoneyMinder/public/css/paginaprincipal.css">
 </head>
 <body>
-    <header id="index-header">
-                                                                                                                                                                                                                            <img src="/MoneyMinder/public/img/logo.jpeg" alt="Money Minder Logo" class="logo-login">
-
-        <nav class="button-container">
+    <header id="index-header">                                                                                                                                                                                                                     <img src="/MoneyMinder/public/img/logo.jpeg" alt="Money Minder Logo" class="logo-login">
+       <nav class="button-container">
            <form action="/MoneyMinder/index.php/inicioSesion" method="GET">
               <button type="submit">Iniciar sesión</button>
            </form>
