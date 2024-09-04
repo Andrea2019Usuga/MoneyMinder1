@@ -5,16 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Crear Cuenta</title>
     <link rel="stylesheet" href="/MoneyMinder/public/css/3crear cuenta.css" />
-    <script src="js/3crear cuenta.js" defer></script>
+    
   </head>
   <body>
     <main>
       <section class="form-container">
         <img src="/MoneyMinder/public/img/logo.jpeg" alt="Money Minder Logo" class="logo-login" />
         <h1>Crear Cuenta</h1>
-        <form
-          id="registration-form" action="index.php/inicio" method="post"
-        >
+        <form id="registration-form" action="/MoneyMinder/index.php/inicio" method="post">
           <label for="nombre">Nombre</label>
           <input type="text" id="nombre" name="nombre" required />
           <div id="tooltip-nombre" class="tooltip"></div>
@@ -47,5 +45,6 @@
       </section>
       <section class="right-side"></section>
     </main>
+    <script src="/MoneyMinder/public/js/3crear cuenta.js"></script>
   </body>
 </html>

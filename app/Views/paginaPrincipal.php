@@ -13,6 +13,7 @@
               <button type="submit">Iniciar sesión</button>
            </form>
 
+
            <form action="/MoneyMinder/index.php/crearCuenta" method="GET">
               <button type="submit">Crear cuenta</button>
            </form>
@@ -21,12 +22,12 @@
     <main id="index-main-section">
         <section class="intro">
             <h2>Money Minder</h2>
-            
+           
             <p>Estamos emocionados de tenerte como parte de nuestra
             comunidad de ahorro. En Money Minder, nuestro
             objetivo es ayudarte a alcanzar tus metas financieras
             de manera fácil y efectiva.<br> Con nuestra aplicación, podrás realizar un seguimiento de tus ingresos y gastos,
-            establecer metas de ahorro personalizadas y recibir 
+            establecer metas de ahorro personalizadas y recibir
             consejos financieros útiles para mejorar tu situación
             económica.</p>
         </section>
@@ -40,6 +41,11 @@
     <script src="/MoneyMinder/public/js/paginaPrincipal.js"></script>
 
 
+
+
 </body>
-</html>   
+</html>  
+
+
+
 

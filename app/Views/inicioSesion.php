@@ -10,9 +10,9 @@
     <main>
         <section class="form-container">
             <!-- Se añadió el logo encima del título -->
-            <img src="/MoneyMinder/public/img/logo.jpeg" alt="Money Minder Logo" class="logo-login">
+            <img src="/MoneyMinder/public/img/logo.jpeg" alt="Money Minder Logo" class="logo-login" />
             <h1>Iniciar sesión</h1>
-            <form id="loginForm" action="index.php/login" method="post">
+            <form id="loginForm" method="post" action="/MoneyMinder/index.php/login">
                 <label for="email">Correo:</label>
                 <input type="email" id="email" name="email" required>
                 <label for="password">Contraseña:</label>
@@ -20,20 +20,18 @@
                 <div class="button-container">
                     <button type="submit">Ingresar</button>
                 </div>
-                <div class="button-container">
-                 <a href="http://localhost/MoneyMinder/index.php/crearCuenta" class="boton">Registrar usuario</a>
-                </div>
             </form>
             <div class="remember-forgot">
-                <label class="checkbox-container">
-                    <input type="checkbox" id="remember" name="remember">
-                    <span>Recordar</span>
-                </label>
-                <a href="4Restablecer contrasena.html">Olvidé mi contraseña</a>
-            </div>
+    <label class="checkbox-container">
+        <input type="checkbox" id="remember" name="remember">
+        <span>Recordar</span>
+    </label>
+    <a href="/MoneyMinder/index.php/restablecerContrasena" method="GET">Olvidé mi contraseña</a>
+</div>
+
         </section>
         <section class="side-background"></section>
     </main>
-    <script src="js/2inicio sesión.js"></script>
+    <script src="/MoneyMinder/public/js/iniciosesion.js"></script>
 </body>
 </html>

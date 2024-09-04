@@ -40,9 +40,23 @@ nav ul li a {
   color: #333;
   font-weight: bold;
 }
+/* Estilo para los botones del header */
+header .button-container {
+  display: flex;
+  align-items: center;
+}
 
-header .user-details button,
-header .user-details a {
+/* Estilo para los botones del header */
+header .button-container {
+  display: flex;
+  align-items: center;
+}
+
+header .button-container form:first-child {
+  margin-right: 20px; /* Empuja el botón de "Iniciar sesión" hacia la derecha */
+}
+
+header .button-container button {
   background-color: #b4a7d6;
   border: none;
   padding: 5px 10px;
@@ -50,17 +64,18 @@ header .user-details a {
   text-decoration: none;
   cursor: pointer;
   margin-top: 5px;
-  border-radius: 10px;
-  margin-right: 155px;
+  border-radius: 20px;
 }
 
-.user-details button:hover {
+header .button-container form:last-child button {
+  margin-right: 150px; /* Ajusta este valor para crear un espacio adecuado a la derecha de "Crear cuenta" */
+}
+
+header .button-container button:hover {
   background-color: #c58ae7;
 }
 
-header .user-details button:first-of-type {
-  margin-right: 20px;
-}
+
 
 .container {
   display: flex;
@@ -114,85 +129,6 @@ main section p {
 
 footer {
   background-color: #b4a7d6;
-  padding: 20px;
-  text-align: center;
-  margin-top: 20px;
-}
-
-/* Estilos para la página de error iniciar sesion */
-.sidebar {
-  width: 200px;
-  background-color: #ffffff;
-  padding: 15px;
-  float: left;
-  box-shadow: 0 0 10px #b4a7d6;
-}
-
-.sidebar img {
-  width: 100px;
-  display: block;
-  margin: 0 auto 20px;
-}
-
-.sidebar ul {
-  list-style: none;
-  padding: 0;
-}
-
-.sidebar ul li {
-  margin-bottom: 10px;
-}
-
-.sidebar ul li a {
-  text-decoration: none;
-  color: #000;
-  display: block;
-  padding: 10px;
-  background-color: #9500ff;
-  border-radius: 10px;
-  text-align: right;
-}
-
-.sidebar ul li a:hover {
-  background-color: #b8a1c9;
-}
-
-form {
-  max-width: 600px;
-  margin: 20px auto;
-  padding: 20px;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-form label {
-  display: block;
-  margin-bottom: 8px;
-}
-
-form input,
-form select,
-form button {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 10px;
-}
-
-form button {
-  background-color: #b4a7d6;
-  color: white;
-  border: none;
-  cursor: pointer;
-  text-align: right;
-}
-
-form button:hover {
-  background-color: #b4a7d6;
-}
-
-footer {
-  background-color: #b4a7d6;
   color: white;
   text-align: center;
   padding: 10px 0;
@@ -212,56 +148,6 @@ a {
 
 a:hover {
   text-decoration: underline;
-}
-
-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-bottom: 20px;
-}
-
-table,
-th,
-td {
-  border: 1px solid #ddd;
-}
-
-th,
-td {
-  padding: 10px;
-  text-align: left;
-}
-
-th {
-  background-color: #f4f4f4;
-}
-
-.button-group {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-}
-
-.button-group button {
-  padding: 10px 20px;
-  background-color: #d3bce3;
-  border: none;
-  border-radius: 5px;
-  color: #000;
-  cursor: pointer;
-}
-
-.button-group button:hover {
-  background-color: #b8a1c9;
-}
-
-.confirm-box {
-  text-align: center;
-  padding: 20px;
-  background-color: white;
-  border-radius: 5px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  display: inline-block;
 }
 
 /* Media Queries */

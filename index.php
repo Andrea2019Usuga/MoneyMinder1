@@ -10,7 +10,7 @@ switch ($uri) {
         $controller = new UserController();
         $controller->index();
         break;
-        
+
     case '/MoneyMinder/index.php/login':
         $controller = new UserController();
         $controller->login();
@@ -31,6 +31,26 @@ switch ($uri) {
         $controller->mostrarInicioSesion(); // Función que muestra la interfaz de inicio de sesión
         break;
 
+    case '/MoneyMinder/index.php/menuPrincipalIngresos':
+        $controller = new UserController();
+        $controller->mostrarMenuPrincipalIngresos(); // Nueva función en el controlador
+        break;
+
+    case '/MoneyMinder/index.php/restablecerContrasena':
+        $controller = new UserController();
+        $controller->restablecerContrasena(); // Función que muestra la interfaz de restablecer contraseña
+        break;
+
+    case '/MoneyMinder/index.php/anuncioRestablecerContrasena':
+        $controller = new UserController();
+        $controller->anuncioRestablecerContrasena(); // Nueva función en el controlador
+        break;
+
+    case '/MoneyMinder/index.php/requestReset':
+        $controller = new UserController();
+        $controller->requestReset();
+        break;
+        
     default:
         $controller = new UserController();
         $controller->index();
@@ -55,3 +75,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 ?>
+
+
