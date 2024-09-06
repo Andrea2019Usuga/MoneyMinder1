@@ -15,7 +15,7 @@ document.addEventListener("DOMContentLoaded", function() {
             // Si todas las validaciones pasan, se puede redirigir al menú principal
             showMessage("Registro exitoso. Redireccionando al menú principal.", "alert-success");
             setTimeout(function() {
-                window.location.href = "6menu principal ingresos.html"; // Redirigir después de 2 segundos
+                registrationForm.submit(); // Enviar el formulario al backend
             }, 2000);
         }
     });

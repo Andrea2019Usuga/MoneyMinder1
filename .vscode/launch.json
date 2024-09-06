@@ -10,6 +10,27 @@
             "request": "launch",
             "port": 9003
         },
+
+
+
+
+
+        
+        {
+            "name": "Xdebug Cloud",
+            "type": "php",
+            "request": "launch",
+            "xdebugCloudToken": ""
+        },
+
+
+
+        {
+            "name": "Listen for Xdebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9003
+        },
         {
             "name": "Launch currently open script",
             "type": "php",

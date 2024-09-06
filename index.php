@@ -36,17 +36,7 @@ switch ($uri) {
         $controller->mostrarMenuPrincipalIngresos(); // Nueva función en el controlador
         break;
 
-    case '/MoneyMinder/index.php/restablecerContrasena':
-        $controller = new UserController();
-        $controller->restablecerContrasena(); // Función que muestra la interfaz de restablecer contraseña
-        break;
-
-    case '/MoneyMinder/index.php/anuncioRestablecerContrasena':
-        $controller = new UserController();
-        $controller->anuncioRestablecerContrasena(); // Nueva función en el controlador
-        break;
-
-    case '/MoneyMinder/index.php/requestReset':
+     case '/MoneyMinder/index.php/requestReset':
         $controller = new UserController();
         $controller->requestReset();
         break;

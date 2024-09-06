@@ -24,9 +24,9 @@
             <div class="remember-forgot">
     <label class="checkbox-container">
         <input type="checkbox" id="remember" name="remember">
-        <span>Recordar</span>
+        <span>Recordar sesión</span>
     </label>
-    <a href="/MoneyMinder/index.php/restablecerContrasena" method="GET">Olvidé mi contraseña</a>
+    
 </div>
 
         </section>

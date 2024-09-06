@@ -45,6 +45,6 @@
       </section>
       <section class="right-side"></section>
     </main>
-    <script src="/MoneyMinder/public/js/3crear cuenta.js"></script>
+    <script src="/MoneyMinder/public/js/crearCuenta.js"></script>
   </body>
 </html>

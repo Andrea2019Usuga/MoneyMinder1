@@ -33,16 +33,27 @@ class UsersModel
 
     // Método para crear un nuevo usuario en la base de datos
     public function createUser($nombre, $apellido, $fechanacimiento, $correo, $clave) {
-        $hashedPassword = password_hash($clave, PASSWORD_DEFAULT);
-        $stmt = $this->db->prepare('INSERT INTO usuarios (nombre, apellido, fecha_nacimiento, correo_electronico, contraseña)
-                                    VALUES (:nombre, :apellido, :fecha_nacimiento, :correo, :contrasena)');
-        $stmt->bindParam(':nombre', $nombre);
-        $stmt->bindParam(':apellido', $apellido);
-        $stmt->bindParam(':fecha_nacimiento', $fechanacimiento);
-        $stmt->bindParam(':correo', $correo);
-        $stmt->bindParam(':contrasena', $hashedPassword);
+        try {
+            // Cifrar la contraseña antes de almacenarla
+            $hashedPassword = password_hash($clave, PASSWORD_DEFAULT);
 
-        return $stmt->execute();
+            // Sentencia SQL para insertar un nuevo usuario
+            $stmt = $this->db->prepare('INSERT INTO usuarios (nombre, apellido, fecha_nacimiento, correo_electronico, contraseña)
+                                        VALUES (:nombre, :apellido, :fecha_nacimiento, :correo, :contrasena)');
+
+            // Vincular los parámetros
+            $stmt->bindParam(':nombre', $nombre);
+            $stmt->bindParam(':apellido', $apellido);
+            $stmt->bindParam(':fecha_nacimiento', $fechanacimiento);
+            $stmt->bindParam(':correo', $correo);
+            $stmt->bindParam(':contrasena', $hashedPassword); // Guardamos la contraseña cifrada
+
+            // Ejecutar la consulta y verificar si tuvo éxito
+            return $stmt->execute();
+        } catch (Exception $e) {
+            // En caso de error, retornar false
+            return false;
+        }
     }
 
     // Método para buscar un usuario por correo electrónico
@@ -51,14 +62,6 @@ class UsersModel
         $stmt->bindParam(':email', $email);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
-    }
-
-    // Método para almacenar el token de restablecimiento de contraseña
-    public function storeResetToken($email, $token) {
-        $stmt = $this->db->prepare("UPDATE usuarios SET reset_token = :token, reset_token_expiry = DATE_ADD(NOW(), INTERVAL 15 MINUTE) WHERE correo_electronico = :email");
-        $stmt->bindParam(':email', $email);
-        $stmt->bindParam(':token', $token);
-        return $stmt->execute();
     }
 
     // Método para guardar el token de "Recordar sesión"
