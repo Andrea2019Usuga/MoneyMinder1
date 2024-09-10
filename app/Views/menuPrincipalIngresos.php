@@ -11,7 +11,7 @@
 </head>
 <body>
     <header>
-        <img src="/MoneyMinder/public/img//logo.jpeg" alt="Money Minder Logo" class="logo">
+        <img src="/MoneyMinder/public/img/logo.jpeg" alt="Money Minder Logo" class="logo">
         
         <div class="user-profile">
             <span class="user-initials">NN</span>
@@ -22,6 +22,7 @@
             </div>
         </div>
     </header>
+
     <main>
         <aside class="sidebar">
             <button class="menu-item selected no-pointer">Menú principal</button>
@@ -31,12 +32,14 @@
             <a href="15tips de ahorro.html" class="menu-item">Tips de ahorro</a>
             <a href="18configuracion idioma.html" class="menu-item">Configuración</a>
         </aside>
+
         <section class="content">
             <h1>Ingresos</h1>
             <div class="search-bar">
                 <input type="text" placeholder="Buscar" class="search-input">
                 <a href="/MoneyMinder/index.php/agregarIngreso" class="add-button">Agregar ingreso</a>
             </div>
+            
             <table class="data-table">
                 <thead>
                     <tr>
@@ -47,41 +50,35 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Salario</td>
-                        <td>$ 2.000.000</td>
-                        <td>09/02/2024</td>
-                        <td>
-                            <button class="edit-button" onclick="location.href='8editar ingreso.html'">✏️</button>
-                            <button class="delete-button">🗑️</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Negocio</td>
-                        <td>$ 3.000.000</td>
-                        <td>19/02/2024</td>
-                        <td>
-                            <button class="edit-button" onclick="location.href='8editar ingreso.html'">✏️</button>
-                            <button class="delete-button">🗑️</button>
-                        </td>
-                    </tr>
+                    <?php if (!empty($ingresos)): ?>
+                        <?php foreach ($ingresos as $ingreso): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($ingreso['nombre_ingreso']); ?></td>
+                                <td><?php echo htmlspecialchars(number_format($ingreso['monto'], 2)); ?></td>
+                                <td><?php echo htmlspecialchars($ingreso['fecha']); ?></td>
+                                <td>
+                                    <a href="#">Editar</a> | <a href="#">Eliminar</a>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="4">No hay ingresos registrados.</td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </section>
     </main>
 
-    <script>
-    function cerrarSesion() {
-
-        window.location.href = 'http://localhost/MoneyMinder/index.php';
-
-    }
-    </script>
-
-
-
     <footer>
         <p>© 2024 Money Minder</p>
     </footer>
+
+    <script>
+        function cerrarSesion() {
+            window.location.href = 'http://localhost/MoneyMinder/index.php';
+        }
+    </script>
 </body>
 </html>
