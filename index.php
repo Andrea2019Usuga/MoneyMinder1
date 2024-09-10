@@ -40,6 +40,12 @@ switch ($uri) {
         $controller = new UserController();
         $controller->requestReset();
         break;
+
+     case '/MoneyMinder/index.php/agregarIngreso':
+        $controller = new UserController();
+        $controller->mostrarAgregarIngreso(); // Función que muestra la interfaz para agregar ingresos
+        break;
+     
         
     default:
         $controller = new UserController();

@@ -144,5 +144,11 @@ class UserController
     public function mostrarMenuPrincipalIngresos() {
         require VIEWS_PATH . '/menuPrincipalIngresos.php';
     }
+
+    public function mostrarAgregarIngreso() {
+        require_once VIEWS_PATH . '/agregarIngreso.php'; 
+    }
+    
+
 }
 ?>

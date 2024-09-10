@@ -35,7 +35,7 @@
             <h1>Ingresos</h1>
             <div class="search-bar">
                 <input type="text" placeholder="Buscar" class="search-input">
-                <a href="7agregar ingreso.html" class="add-button">Agregar ingreso</a>
+                <a href="/MoneyMinder/index.php/agregarIngreso" class="add-button">Agregar ingreso</a>
             </div>
             <table class="data-table">
                 <thead>
