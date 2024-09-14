@@ -1,148 +1,234 @@
-<?php
-require_once 'C:/xampp/htdocs/MoneyMinder/app/Models/UsersModel.php';
-require_once 'C:/xampp/htdocs/MoneyMinder/app/Core/DB.php'; // Usa require_once para evitar múltiples inclusiones
+    <?php
+    require_once 'C:/xampp/htdocs/MoneyMinder/app/Models/UsersModel.php';
+    require_once 'C:/xampp/htdocs/MoneyMinder/app/Core/DB.php';
+    
+    class UserController
+    {
+        private $model;
 
-class UserController
-{
-    private $model;
+        // Constructor para inicializar el modelo con la conexión a la base de datos
+        public function __construct() {
+            session_start();
+            $dbConnection = DB::getInstance();
+            $this->model = new UsersModel($dbConnection);
+            $this->verificarSesion(); // Verificar sesión en el constructor
+        }
 
-    // Constructor para inicializar el modelo con la conexión a la base de datos
-    public function __construct() {
-        session_start(); // Iniciar la sesión
-        $dbConnection = DB::getInstance(); // Obtén la conexión a la base de datos
-        $this->model = new UsersModel($dbConnection); // Pasa la conexión al modelo de usuarios
-        $this->verificarSesion(); // Verificar la sesión
-    }
+        // Redirigir a la pantalla principal
+        public function index() {
+            require VIEWS_PATH . '/paginaPrincipal.php';
+            exit();
+        }
 
-    // Función para redireccionar a la pantalla principal
-    public function index() {
-        require VIEWS_PATH . '/paginaPrincipal.php';
-        exit();
-    }
+        // Redireccionar al inicio de sesión
+        public function redirectToLogin() {
+            header("Location: /MoneyMinder/index.php/inicioSesion");
+            exit();
+        }
 
-    // Función para mostrar la página principal
-    public function showHomePage() {
-        require VIEWS_PATH . '/paginaPrincipal.php'; 
-    }
+        // Redireccionar al registro
+        public function redirectToRegister() {
+            header("Location: /MoneyMinder/index.php/crearCuenta");
+            exit();
+        }
 
-    // Redireccionar al inicio de sesión
-    public function redirectToLogin() {
-        header("Location: /MoneyMinder/index.php/inicioSesion");
-        exit();
-    }
+        // Manejar el inicio de sesión
+        public function inicioSesion() {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $correo = $_POST['email'];
+                $password = $_POST['password'];
+                $recordar = isset($_POST['recordar']);
 
-    // Redireccionar al registro
-    public function redirectToRegister() {
-        header("Location: /MoneyMinder/index.php/crearCuenta");
-        exit();
-    }
+                // Verificar si el usuario existe en la base de datos
+                $usuario = $this->model->getById($correo, $password);
 
-    // Función para manejar el inicio de sesión
-    public function inicioSesion() {
-        $this->login();
-    }
+                if ($usuario) {
+                    $_SESSION['usuario_id'] = $usuario['id'];
 
-    public function login() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $correo = $_POST['email'];
-            $password = $_POST['password'];
-            $recordar = isset($_POST['recordar']);
+                    // Si el usuario seleccionó la opción "Recordar sesión"
+                    if ($recordar) {
+                        $token = bin2hex(random_bytes(16));
+                        $this->model->guardarToken($usuario['id'], $token);
+                        setcookie('remember_token', $token, time() + (86400 * 30), "/", "", true, true);
+                    }
 
-            // Verificar si el usuario existe en la base de datos
-            $usuario = $this->model->getById($correo, $password);
-
-            if ($usuario) {
-                // Inicio de sesión exitoso
-                $_SESSION['usuario_id'] = $usuario['id'];
-
-                if ($recordar) {
-                    // Crear un token único
-                    $token = bin2hex(random_bytes(16));
-                    // Guardar el token en la base de datos
-                    $this->model->guardarToken($usuario['id'], $token);
-                    // Establecer cookie con el token
-                    setcookie('remember_token', $token, time() + (86400 * 30), "/", "", true, true);
+                    header("Location: /MoneyMinder/index.php/menuPrincipalIngresos");
+                    exit();
+                } else {
+                    echo '<script type="text/javascript">
+                            alert("USUARIO O CONTRASEÑA INCORRECTOS");
+                            window.location.href="/MoneyMinder/index.php/inicioSesion";
+                        </script>';
+                    exit();
                 }
-
-                // Redirigir al panel de control
-                header("Location: /MoneyMinder/index.php/menuPrincipalIngresos");
-                exit();
-            } else {
-                // Usuario o contraseña incorrectos
-                echo '<script type="text/javascript">
-                    alert("USUARIO O CONTRASEÑA INCORRECTOS");
-                    window.location.href="/MoneyMinder/index.php/inicioSesion";
-                    </script>';
-                exit();
             }
         }
-    }
 
-    // Función para verificar si hay una sesión activa o una cookie válida
-    public function verificarSesion() {
-        if (isset($_SESSION['usuario_id'])) {
+        public function verificarSesion() {
             return true;
-        } elseif (isset($_COOKIE['remember_token'])) {
-            $usuario = $this->model->obtenerPorToken($_COOKIE['remember_token']);
-            if ($usuario) {
-                $_SESSION['usuario_id'] = $usuario['id'];
+
+            // Verificar si existe una sesión de usuario
+            if (isset($_SESSION['usuario_id'])) {
                 return true;
+            } 
+            // Verificar si existe una cookie remember_token
+            elseif (isset($_COOKIE['remember_token'])) {
+                $usuario = $this->model->obtenerPorToken($_COOKIE['remember_token']);
+                
+                if ($usuario) {
+                    $_SESSION['usuario_id'] = $usuario['id'];
+                    return true;
+                }
             }
+            // Si no hay sesión ni cookie válida, retornar false
+            return false;
         }
-        return false;
-    }
 
-    // Función para cerrar sesión
-    public function logout() {
-        session_destroy();
-        if (isset($_COOKIE['remember_token'])) {
-            setcookie('remember_token', '', time() - 3600, '/');
+        // Cargar la vista de agregar ingreso
+        public function agregarIngreso() {
+            require VIEWS_PATH . '/agregarIngreso.php';
         }
-        header('Location: /MoneyMinder/index.php/inicioSesion');
-        exit();
+        
+        // Función para manejar la inserción de un nuevo ingreso
+    public function setIngreso() {
+        // Verifica si se ha enviado el formulario y se han recibido todos los datos necesarios
+        if (isset($_POST['id'], $_POST['nombre'], $_POST['monto'], $_POST['fecha'])) {
+            // Asigna los valores del formulario a variables
+            $id = $_POST['id'];
+            $nombre = $_POST['nombre'];
+            $monto = $_POST['monto'];
+            $fecha = $_POST['fecha'];
+
+            // Llama al método del modelo para insertar los datos en la base de datos
+            $resultado = $this->model->setIngresoById($id, $nombre, $monto, $fecha);
+
+            // Aquí puedes manejar el resultado de la inserción si es necesario
+        }
     }
 
-    // Función para cargar la vista de crear cuenta
-    public function crearCuenta() {
-        require VIEWS_PATH . '/crearCuenta.php';
-    }
 
-    // Función para crear un nuevo usuario
-    public function createUser() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            // Recibir los datos del formulario
-            $nombre = $_POST["nombre"];
-            $apellido = $_POST["apellido"];
-            $fechanacimiento = $_POST["fecha-nacimiento"];
-            $correo = $_POST["correo"];
-            $clave = $_POST["contrasena"];
+        // Guardar el ingreso en la base de datos
+        public function guardarIngreso() {
+            if ($this->verificarSesion()) {
+                if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                    $nombre = $_POST['nombre-ingreso'];
+                    $monto = $_POST['monto'];
+                    $dia = $_POST['dia'];
+                    $mes = $_POST['mes'];
+                    $anio = $_POST['año'];
+                    $fecha = "$anio-$mes-$dia";
 
-            // Llamar al modelo para crear el usuario
-            $resultado = $this->model->createUser($nombre, $apellido, $fechanacimiento, $correo, $clave);
+                    // Validar campos vacíos
+                    if (empty($nombre) || empty($monto) || empty($dia) || empty($mes) || empty($anio)) {
+                        echo "Todos los campos son obligatorios.";
+                        return;
+                    }
 
-            // Verificar si el usuario fue creado exitosamente
-            if ($resultado) {
-                // Redirigir al menú principal de ingresos si la creación fue exitosa
-                header("Location: /MoneyMinder/index.php/menuPrincipalIngresos");
-                exit();
+                    // Validar que el monto sea numérico
+                    if (!is_numeric($monto)) {
+                        echo "El monto debe ser un número válido.";
+                        return;
+                    }
+
+                    // Obtener el ID del usuario autenticado desde la sesión
+                    $usuario_id = $_SESSION['usuario_id'];
+
+                    // Instanciar el modelo y guardar el ingreso
+                    $ingresoModel = new IngresoModel();
+                    if ($ingresoModel->guardarIngreso($usuario_id, $nombre, $monto, $fecha)) {
+                        header('Location: /MoneyMinder/index.php/menuPrincipalIngresos');
+                        exit();
+                    } else {
+                        echo "Error al guardar el ingreso.";
+                    }
+                }
             } else {
-                // Mostrar un mensaje de error si la creación falló
-                echo '<script type="text/javascript">
-                    alert("Error al crear la cuenta. Inténtalo de nuevo.");
-                    window.location.href="/MoneyMinder/index.php/crearCuenta";
-                    </script>';
-                exit();
+                $this->redirectToLogin();
             }
         }
-    }
 
-    // Funciones para mostrar las vistas
-    public function mostrarInicioSesion() {
-        require VIEWS_PATH . '/inicioSesion.php';
-    }
+        // Función para obtener los ingresos
+        public function getAllIngresos() {
+            $query = $this->db->prepare("SELECT * FROM ingresos");
+            $query->execute();
+            return $query->get_result()->fetch_all(MYSQLI_ASSOC);
+        }
 
-    public function mostrarMenuPrincipalIngresos() {
-        require VIEWS_PATH . '/menuPrincipalIngresos.php';
+        // Eliminar ingreso
+        public function eliminarIngreso($id) {
+            $result = $this->ingresoModel->deleteIngreso($id);
+        
+            if ($result) {
+                header('Location: /MoneyMinder/index.php?action=ingresos');
+            } else {
+                echo "Error al eliminar el ingreso.";
+            }
+        }
+
+        // Editar ingreso
+        public function editarIngreso($id) {
+            $ingreso = $this->ingresoModel->getIngresoById($id);
+        
+            if ($ingreso) {
+                require 'views/editarIngreso.php';
+            } else {
+                echo "Ingreso no encontrado.";
+            }
+        }
+
+        // Función para cerrar sesión
+        public function logout() {
+            session_destroy();
+            if (isset($_COOKIE['remember_token'])) {
+                setcookie('remember_token', '', time() - 3600, '/');
+            }
+            header('Location: /MoneyMinder/index.php/inicioSesion');
+            exit();
+        }
+
+        // Cargar la vista de crear cuenta
+        public function crearCuenta() {
+            require VIEWS_PATH . '/crearCuenta.php';
+        }
+
+        // Crear un nuevo usuario
+        public function createUser() {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $nombre = $_POST["nombre"];
+                $apellido = $_POST["apellido"];
+                $fechanacimiento = $_POST["fecha-nacimiento"];
+                $correo = $_POST["correo"];
+                $clave = $_POST["contrasena"];
+
+                $resultado = $this->model->createUser($nombre, $apellido, $fechanacimiento, $correo, $clave);
+
+                if ($resultado) {
+                    header("Location: /MoneyMinder/index.php/menuPrincipalIngresos");
+                    exit();
+                } else {
+                    echo '<script type="text/javascript">
+                            alert("Error al crear la cuenta. Inténtalo de nuevo.");
+                            window.location.href="/MoneyMinder/index.php/crearCuenta";
+                        </script>';
+                    exit();
+                }
+            }
+        }
+
+        public function prueba() {
+            $usuario = $this->model->getAll();
+        }
+
+        // Mostrar la vista de inicio de sesión
+        public function mostrarInicioSesion() {
+            require VIEWS_PATH . '/inicioSesion.php';
+        }
+
+        // Mostrar la vista del menú principal de ingresos
+        public function mostrarMenuPrincipalIngresos() {
+        // $ingresoModel = new IngresoModel(); 
+        // $ingresos = $ingresoModel->getAllIngresos();
+            require VIEWS_PATH . '/menuPrincipalIngresos.php';
+        }
     }
-}
-?>
+    ?>

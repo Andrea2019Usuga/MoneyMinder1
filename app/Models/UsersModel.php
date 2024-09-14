@@ -25,6 +25,7 @@ class UsersModel
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($user && password_verify($password, $user['contraseña'])) {
+            echo "$user";
             return $user;
         } else {
             return null;
@@ -79,5 +80,31 @@ class UsersModel
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getIngresoById($id) {
+        $query = $this->db->prepare("SELECT * FROM ingresos WHERE id = ?");
+        $query->bind_param('i', $id);
+        $query->execute();
+        return $query->get_result()->fetch_assoc();
+    }
+    
+    public function deleteIngreso($id) {
+        $query = $this->db->prepare("DELETE FROM ingresos WHERE id = ?");
+        $query->bind_param('i', $id);
+        return $query->execute();
+    }
+    
+    public function setIngresoById($id, $nombre, $monto, $fecha) {
+        $query = $this->db->prepare("INSERT INTO ingresos (id, nombre, monto, fecha) VALUES (?, ?, ?, ?)");
+        $query->bind_param('isds', $id, $nombre, $monto, $fecha);
+        if ($query->execute()) {
+            return true; 
+        } else {
+            return false; 
+        }
+    }
+    
+    
 }
+
 ?>
