@@ -21,17 +21,17 @@ class UserController
         exit();
     }
 
-    // Redireccionar al inicio de sesión
-    public function redirectToLogin() {
-        header("Location: /MoneyMinder/index.php/inicioSesion");
-        exit();
-    }
+        // Redireccionar al inicio de sesión
+        public function redirectToLogin() {
+            header("Location: /MoneyMinder/index.php/inicioSesion");
+            exit();
+        }
 
-    // Redireccionar al registro
-    public function redirectToRegister() {
-        header("Location: /MoneyMinder/index.php/crearCuenta");
-        exit();
-    }
+        // Redireccionar al registro
+        public function redirectToRegister() {
+            header("Location: /MoneyMinder/index.php/crearCuenta");
+            exit();
+        }
 
     // Manejar el inicio de sesión
     public function inicioSesion() {

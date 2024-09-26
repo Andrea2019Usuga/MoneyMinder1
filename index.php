@@ -4,6 +4,7 @@ require 'app/Controllers/UserController.php';
 
 define('VIEWS_PATH', __DIR__ . '/app/Views');
 
+
 $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 $controller = new UserController();
@@ -16,6 +17,8 @@ switch ($uri) {
     case '/MoneyMinder/index.php/login':
         $controller->inicioSesion();
         break;
+    case '/MoneyMinder/index.php/inicioSesion':
+        $controller->mostrarInicioSesion();
     case '/MoneyMinder/index.php/inicioSesion':
         $controller->mostrarInicioSesion();
         break;
@@ -71,6 +74,7 @@ switch ($uri) {
 
 // Manejar solicitudes POST de formularios
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $action = $_POST['action'] ?? '';
     $action = $_POST['action'] ?? '';
 
     switch ($action) {
