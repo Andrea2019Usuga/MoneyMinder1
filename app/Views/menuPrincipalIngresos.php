@@ -95,6 +95,42 @@ if (isset($_SESSION['usuario_id'])) {
         window.location.href = 'http://localhost/MoneyMinder/index.php';
     }
     </script>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    function confirmDelete(id, form) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enviar la solicitud de eliminación
+                form.submit();
+                Swal.fire(
+                    'Eliminado!',
+                    'El ingreso ha sido eliminado.',
+                    'success'
+                );
+            }
+        });
+    }
+
+    // Agregar eventos a los botones de eliminar
+    document.querySelectorAll('.delete-button').forEach(function (button) {
+        button.addEventListener('click', function (event) {
+            event.preventDefault(); // Evitar el envío del formulario predeterminado
+            const form = this.closest('form');
+            const id = this.getAttribute('data-id');
+            confirmDelete(id, form);
+        });
+    });
+});
+</script>
 
     <footer>
         <p>© 2024 Money Minder</p>
