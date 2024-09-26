@@ -23,7 +23,7 @@
                  <label for="email"><br>Correo electrónico</label>
                  <input type="email" id="email" name="email" required>
                  <div class="button-container">
-                 <button type="submit">Enviar código</button>
+                 <button type="submit">Enviar Contraseña</button>
                  </div>
              </form>
 

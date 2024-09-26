@@ -12,7 +12,7 @@
       <section class="form-container">
         <img src="/MoneyMinder/public/img/logo.jpeg" alt="Money Minder Logo" class="logo-login" />
         <h1>Crear Cuenta</h1>
-        <form id="registration-form" action="/MoneyMinder/index.php/inicio" method="post">
+        <form id="registration-form" action="/MoneyMinder/index.php/crearUsuario" method="post">
           <label for="nombre">Nombre</label>
           <input type="text" id="nombre" name="nombre" required />
           <div id="tooltip-nombre" class="tooltip"></div>

@@ -7,16 +7,26 @@
     <link rel="stylesheet" href="/MoneyMinder/public/css/6menu principal ingresos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="js/6menu principal ingresos.js" defer></script>
+    <script src="/MoneyMinder/public/js/menuPrincipalIngresos.js"></script>
 </head>
 <body>
+
+<?php
+//porcion de codigo para guardar el nombre de usuario
+if (isset($_SESSION['usuario_id'])) {
+    //asignar a variable
+    $userid = $_SESSION['usuario_id'];
+    $username= $_SESSION['nombre_usuario'];
+}
+?>
+
     <header>
-        <img src="/MoneyMinder/public/img//logo.jpeg" alt="Money Minder Logo" class="logo">
+        <img src="/MoneyMinder/public/img/logo.jpeg" alt="Money Minder Logo" class="logo">
         
         <div class="user-profile">
-            <span class="user-initials">NN</span>
+            
             <div class="user-details">
-                <span>Nombre Completo Usuario</span>
+                <span><?php echo ($username)?></span>
                 <button onclick="window.location.href='16Editar perfil.html'">Editar Perfil</button>
                 <button type="button" onclick="cerrarSesion()">Cerrar Sesión</button>
             </div>
@@ -35,7 +45,7 @@
             <h1>Ingresos</h1>
             <div class="search-bar">
                 <input type="text" placeholder="Buscar" class="search-input">
-                <a href="7agregar ingreso.html" class="add-button">Agregar ingreso</a>
+                <a href="/MoneyMinder/index.php/agregarIngreso" class="add-button">Agregar ingreso</a>
             </div>
             <table class="data-table">
                 <thead>
@@ -47,24 +57,34 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Salario</td>
-                        <td>$ 2.000.000</td>
-                        <td>09/02/2024</td>
-                        <td>
-                            <button class="edit-button" onclick="location.href='8editar ingreso.html'">✏️</button>
-                            <button class="delete-button">🗑️</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td>Negocio</td>
-                        <td>$ 3.000.000</td>
-                        <td>19/02/2024</td>
-                        <td>
-                            <button class="edit-button" onclick="location.href='8editar ingreso.html'">✏️</button>
-                            <button class="delete-button">🗑️</button>
-                        </td>
-                    </tr>
+                    <?php if (isset($ingresos) && is_array($ingresos)): ?>
+                        <?php foreach ($ingresos as $ingreso): ?>
+                            <tr>
+                                <td><?php echo htmlspecialchars($ingreso['nombre']); ?></td>
+                                <td><?php echo htmlspecialchars($ingreso['monto']); ?></td>
+                                <td><?php echo htmlspecialchars($ingreso['fecha']); ?></td>
+                                <td>
+                                    <!--<button class='edit-button' onclick="location.href='/MoneyMinder/index.php?action=editarIngreso&id=<?php echo $ingreso['id']; ?>'">✏️</button>
+                                    <!--<button class='delete-button' onclick="location.href='/MoneyMinder/index.php?action=eliminarIngreso&id=<?php echo $ingreso['id']; ?>'">🗑️</button>-->
+                                   
+                                    <form action="/MoneyMinder/index.php/editarIngreso" method="get" style="display: inline-block;">
+                                        <input type="hidden" name="id" value="<?php echo $ingreso['id']; ?>">
+                                        <button class="edit-button" type="submit">✏️</button>
+                                    </form>
+
+                                   
+                                    <form action="/MoneyMinder/index.php/eliminarIngreso" method="post">
+                                        <input type="hidden" name="id" value=<?php echo $ingreso['id']; ?> />
+                                        <button class='delete-button' type="submit">🗑️</button>
+                                    </form>
+                                </td>
+                            </tr>
+                        <?php endforeach; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="4">No hay ingresos disponibles.</td>
+                        </tr>
+                    <?php endif; ?>
                 </tbody>
             </table>
         </section>
@@ -72,13 +92,9 @@
 
     <script>
     function cerrarSesion() {
-
         window.location.href = 'http://localhost/MoneyMinder/index.php';
-
     }
     </script>
-
-
 
     <footer>
         <p>© 2024 Money Minder</p>

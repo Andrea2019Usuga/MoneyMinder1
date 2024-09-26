@@ -7,7 +7,9 @@ class UsersModel
     public function __construct($db) {
         $this->db = $db;
     }
-
+    public function getDB() {
+        return $this->db;
+    }
     // Método para obtener todos los usuarios de la base de datos
     public function getAll() {
         $stmt = $this->db->prepare('SELECT * FROM usuarios');
@@ -17,17 +19,19 @@ class UsersModel
 
     // Método para obtener un usuario por correo electrónico y contraseña
     public function getById($email, $password) {
-        $stmt = $this->db->prepare('SELECT * FROM usuarios WHERE correo_electronico = :email');
+    
+        $stmt = $this->db->prepare('SELECT * FROM usuarios WHERE correo_electronico = :email and contrasena = :password' );
         $email = filter_var($email, FILTER_VALIDATE_EMAIL);
         $stmt->bindParam(':email', $email);
+        $stmt->bindParam(':password', $password);
         $stmt->execute();
-
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
-
-        if ($user && password_verify($password, $user['contraseña'])) {
-            return $user;
+        print_r($user);
+        if (empty($user)) {
+           return null;
         } else {
-            return null;
+            echo "si coinciden";
+            return $user;
         }
     }
 
@@ -35,10 +39,10 @@ class UsersModel
     public function createUser($nombre, $apellido, $fechanacimiento, $correo, $clave) {
         try {
             // Cifrar la contraseña antes de almacenarla
-            $hashedPassword = password_hash($clave, PASSWORD_DEFAULT);
+            //$hashedPassword = password_hash($clave, PASSWORD_DEFAULT);
 
             // Sentencia SQL para insertar un nuevo usuario
-            $stmt = $this->db->prepare('INSERT INTO usuarios (nombre, apellido, fecha_nacimiento, correo_electronico, contraseña)
+            $stmt = $this->db->prepare('INSERT INTO usuarios (nombre, apellido, fecha_nacimiento, correo_electronico, contrasena)
                                         VALUES (:nombre, :apellido, :fecha_nacimiento, :correo, :contrasena)');
 
             // Vincular los parámetros
@@ -46,7 +50,7 @@ class UsersModel
             $stmt->bindParam(':apellido', $apellido);
             $stmt->bindParam(':fecha_nacimiento', $fechanacimiento);
             $stmt->bindParam(':correo', $correo);
-            $stmt->bindParam(':contrasena', $hashedPassword); // Guardamos la contraseña cifrada
+            $stmt->bindParam(':contrasena', $clave); // Guardamos la contraseña cifrada
 
             // Ejecutar la consulta y verificar si tuvo éxito
             return $stmt->execute();
@@ -79,5 +83,22 @@ class UsersModel
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+
+    public function getIngresoById($id) {
+        $query = $this->db->prepare("SELECT * FROM ingresos WHERE id = ?");
+        $query->bind_param('i', $id);
+        $query->execute();
+        return $query->get_result()->fetch_assoc();
+    }
+    
+    public function deleteIngreso($id) {
+        $query = $this->db->prepare("DELETE FROM ingresos WHERE id = ?");
+        $query->bind_param('i', $id);
+        return $query->execute();
+    }
+    
+
+    
 }
+
 ?>

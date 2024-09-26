@@ -21,6 +21,6 @@ document.addEventListener('DOMContentLoaded', function() {
             año
         });
         // Redireccionar después de guardar
-        window.location.href = 'menuPrincipalIngresos.php';  
+        window.location.href = '6menu principal ingresos.html';  
     });
 });
