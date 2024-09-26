@@ -21,8 +21,9 @@
                     <input type="text" id="nombre-ingreso" name="nombre-ingreso" required>
                 </div>
                 <div class="form-group">
-                    <label for="monto">Monto</label>
-                    <input type="number" id="monto" name="monto" required>
+                    <label for="monto">Monto:</label>
+                    <input type="number" id="monto" name="monto" value="<?php echo htmlspecialchars($ingreso['monto']); ?>" min="0" step="0.01" required>
+                    <small>Ingrese el monto (número general, sin formato especial).</small>
                 </div>
                 <div class="form-group">
                     <label for="fecha">Fecha</label>
