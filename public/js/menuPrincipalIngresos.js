@@ -11,7 +11,14 @@ document.addEventListener('DOMContentLoaded', function () {
             cancelButtonText: 'Cancelar'
         }).then((result) => {
             if (result.isConfirmed) {
-                fetch(`/MoneyMinder/index.php?action=eliminarIngreso&id=${id}`, { method: 'POST' })
+                // Enviar la solicitud de eliminación
+                fetch('/MoneyMinder/index.php/eliminarIngreso', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                    body: new URLSearchParams({ id: id })
+                })
                 .then(response => {
                     if (response.ok) {
                         Swal.fire(
@@ -19,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function () {
                             'El ingreso ha sido eliminado.',
                             'success'
                         );
-                        // Verificar si el elemento existe antes de intentar eliminarlo
+                        // Eliminar la fila de la tabla
                         const row = document.querySelector(`tr[data-id="${id}"]`);
                         if (row) {
                             row.remove();
@@ -49,16 +56,8 @@ document.addEventListener('DOMContentLoaded', function () {
     // Agregar eventos a los botones de eliminar
     document.querySelectorAll('.delete-button').forEach(function (button) {
         button.addEventListener('click', function () {
-            const id = button.getAttribute('data-id');
+            const id = this.getAttribute('data-id');
             confirmDelete(id);
-        });
-    });
-
-    // Agregar eventos a los botones de editar perfil (si es necesario)
-    document.querySelectorAll('.user-details button').forEach(button => {
-        button.addEventListener('click', function () {
-            const href = this.getAttribute('onclick').match(/window\.location\.href='([^']+)'/)[1];
-            window.location.href = href;
         });
     });
 });
