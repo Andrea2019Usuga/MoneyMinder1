@@ -77,7 +77,7 @@ class UserController
         return false;
     }
 
-    // Cargar la vista de agregar ingreso
+    // Cargar la vista de git add . ingreso
     public function agregarIngreso() {
         require VIEWS_PATH . '/agregarIngreso.php';
     }
