@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Menú Principal Metas de ahorro</title>
+    <link rel="stylesheet" href="css/12metas de ahorro.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="js/12metas de ahorro.js" defer></script>
+</head>
+<body>
+    <header>
+        <img src="img/logo.jpeg" alt="Money Minder Logo" class="logo">
+        
+        <div class="user-profile">
+            <span class="user-initials">NN</span>
+            <div class="user-details">
+                <span>Nombre Completo Usuario</span>
+                <button onclick="window.location.href='16Editar perfil.html'">Editar Perfil</button>
+                <button onclick="window.location.href='24cerrar sesión.html'">Cerrar Sesión</button>
+            </div>
+        </div>
+    </header>
+    <main>
+        <aside class="sidebar">
+            <button class="menu-item selected no-pointer">Menú principal</button>
+            <a href="6menu principal ingresos.html" class="menu-item">Ingresos</a>
+            <a href="9gastos.html" class="menu-item">Gastos</a>
+            <a href="12metas de ahorro.html" class="menu-item selected">Metas de ahorro</a>
+            <a href="15tips de ahorro.html" class="menu-item">Tips de ahorro</a>
+            <a href="18configuracion idioma.html" class="menu-item">Configuración</a>
+        </aside>
+        <section class="content">
+            <h1>Metas de ahorro</h1>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar" class="search-input">
+                <a href="13agregar meta de ahorro.html" class="add-button">Agregar metas de ahorros</a>
+            </div>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Nombre</th>
+                        <th>Monto Ahorrar</th>
+                        <th>Monto Actual</th>
+                        <th>Fecha Inicio</th>
+                        <th>Fecha Fin</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Viaje</td>
+                        <td>$ 1.000.000</td>
+                        <td>$  200.000</td>
+                        <td>20/01/2024</td>
+                        <td>17/06/2024</td>
+                        <td>
+                            <button class="edit-button" onclick="location.href='14editar meta de ahorro.html'">✏️</button>
+                            <button class="delete-button">🗑️</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>Computador</td>
+                        <td>$ 2.500.000</td>
+                        <td>$ 1.000.000</td>
+                        <td>07/02/2024</td>
+                        <td>16/10/2024</td>
+                        <td>
+                            <button class="edit-button" onclick="location.href='14editar meta de ahorro.html'">✏️</button>
+                            <button class="delete-button">🗑️</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+    </main>
+    <footer>
+        <p>© 2024 Money Minder</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,270 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 10px 20px;
+}
+
+
+header .logo {
+    height: 80px;
+}
+
+
+main {
+    display: flex;
+    flex: 1;
+}
+
+
+.sidebar {
+    width: 15%;
+    background-color: #ffffff;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+
+.sidebar .menu-item {
+    display: block;
+    padding: 10px;
+    margin-bottom: 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    color: #333;
+    border: 2px solid #000000;
+}
+
+
+.sidebar .menu-item.selected {
+    background-color: #B4A7D6;
+    color: white;
+    font-size: 16px;
+}
+
+
+.sidebar .dropdown {
+    position: relative;
+}
+
+
+.sidebar .dropdown-toggle {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 5px;
+    text-align: center;
+    border: 2px solid #000000;
+    color: #333;
+    cursor: pointer;
+}
+
+
+.sidebar .dropdown-toggle::after {
+    content: ' ▶';
+}
+
+
+.sidebar .dropdown-content {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: 0;
+    width: 100%;
+    background-color: #f9f9f9;
+    box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+    z-index: 1;
+    border: 2px solid #000000;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+
+.sidebar .dropdown-content .menu-item {
+    display: block;
+    padding: 10px;
+    background-color: #ffffff;
+    text-align: center;
+    color: #333;
+    text-decoration: none;
+    border-radius: 5px;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.sidebar .menu-item.selected {
+    background-color: #B4A7D6;
+    color: white;
+}
+
+.sidebar .dropdown-content .menu-item:hover {
+    background-color: #c58ae7;
+}
+
+
+.sidebar .dropdown.show .dropdown-content {
+    display: block;
+}
+
+
+.no-pointer {
+    cursor: default;
+}
+
+
+.menu-item:hover, .dropdown-toggle:hover {
+    background-color: #c58ae7;
+}
+
+
+.content {
+    width: 80%;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+
+.content h2 {
+    font-size: 32px;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+
+form {
+    width: 100%;
+    max-width: 500px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+.form-group {
+    width: 80%;
+    margin-bottom: 20px;
+}
+
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    text-align: center;
+}
+
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #333;
+    border-radius: 5px;
+}
+
+
+.form-group small {
+    display: block;
+    margin-top: 5px;
+    color: #666;
+    text-align: center;
+}
+
+
+.update-button {
+    background-color: #B4A7D6;
+    color: #000000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    align-items: center;
+    display: block;
+    margin: 20px auto 0;
+    font-weight: bold;
+}
+
+
+
+@media (max-width: 768px) {
+    .sidebar {
+        width: 30%;
+        padding: 10px;
+    }
+
+
+    .sidebar .menu-item {
+        margin-bottom: 5px;
+    }
+
+
+    .header nav ul {
+        flex-direction: column;
+        align-items: center;
+    }
+
+
+    header nav ul li {
+        margin: 5px 0;
+    }
+
+
+    main {
+        padding: 10px;
+    }
+
+
+    .content {
+        width: 70%;
+    }
+
+
+    .sidebar .dropdown-content {
+        left: 0;
+        top: 100%;
+        width: 100%;
+    }
+}
+
+
+@media (max-width: 480px) {
+    header {
+        padding: 10px;
+    }
+
+
+    header .logo {
+        height: 60px;
+    }
+
+
+
+    .data-table th, .data-table td {
+        font-size: 9.9px;
+    }
+
+
+    .sidebar .dropdown-content {
+        left: 0;
+        top: 100%;
+        width: 100%;
+    }
+}
