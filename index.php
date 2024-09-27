@@ -19,8 +19,6 @@ switch ($uri) {
         break;
     case '/MoneyMinder/index.php/inicioSesion':
         $controller->mostrarInicioSesion();
-    case '/MoneyMinder/index.php/inicioSesion':
-        $controller->mostrarInicioSesion();
         break;
     case '/MoneyMinder/index.php/crearCuenta':
         $controller->crearCuenta();
