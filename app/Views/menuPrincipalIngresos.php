@@ -23,7 +23,6 @@ if (isset($_SESSION['usuario_id'])) {
 
     <header>
         <img src="/MoneyMinder/public/img/logo.jpeg" alt="Money Minder Logo" class="logo">
-        <img src="/MoneyMinder/public/img/logo.jpeg" alt="Money Minder Logo" class="logo">
         
         <div class="user-profile">
             
@@ -47,7 +46,6 @@ if (isset($_SESSION['usuario_id'])) {
             <h1>Ingresos</h1>
             <div class="search-bar">
                 <input type="text" placeholder="Buscar" class="search-input">
-                <a href="/MoneyMinder/index.php/agregarIngreso" class="add-button">Agregar ingreso</a>
                 <a href="/MoneyMinder/index.php/agregarIngreso" class="add-button">Agregar ingreso</a>
             </div>
             <table class="data-table">
