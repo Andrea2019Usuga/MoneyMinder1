@@ -57,7 +57,38 @@ switch ($uri) {
         case '/MoneyMinder/index.php/actualizarIngreso':
             $controller->actualizarIngreso();
             break;
-              
+     
+    case '/MoneyMinder/index.php/gastos':
+        $controller->mostrarGastos();
+        break;       
+
+    case '/MoneyMinder/index.php/agregarGasto':
+        $controller->agregarGasto();
+        break; 
+    
+    case '/MoneyMinder/index.php/guardarGasto':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $controller->guardarGasto();
+            } else {
+                echo "Método no permitido.";
+            }
+            break;
+        case '/MoneyMinder/index.php/eliminarGasto':
+                $controller->eliminarGasto();
+                break;
+    
+        case '/MoneyMinder/index.php/editarGasto':
+                    if (isset($_GET['id'])) {
+                $controller->editarGasto($_GET['id']); // Pasar el ID al controlador
+                } else {
+                    echo "ID no especificado.";
+                }
+                break;
+                
+        case '/MoneyMinder/index.php/actualizarGasto':
+                $controller->actualizarGasto();
+                break;    
+        
     case '/MoneyMinder/index.php/editarPerfil':
         $controller->editarPerfil();
         break;

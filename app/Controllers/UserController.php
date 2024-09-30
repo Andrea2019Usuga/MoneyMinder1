@@ -1,6 +1,7 @@
 <?php
 require_once 'C:/xampp/htdocs/MoneyMinder/app/Models/UsersModel.php';
 require_once 'C:/xampp/htdocs/MoneyMinder/app/Models/IngresoModel.php';
+require_once 'C:/xampp/htdocs/MoneyMinder/app/Models/GastoModel.php';
 require_once 'C:/xampp/htdocs/MoneyMinder/app/Core/DB.php';
 
 class UserController
@@ -270,5 +271,129 @@ class UserController
         }
     }
     
+   // Función para mostrar la vista de gastos
+   public function mostrarGastos() {
+    if ($this->verificarSesion()) {
+        // Obtener el modelo de gastos y los datos de los gastos del usuario autenticado
+        $gastoModel = new GastoModel($this->model->getDB());
+        $gastos = $gastoModel->getGastosByUserId($_SESSION['usuario_id']);
+
+        // Cargar la vista de gastos y pasarle los datos obtenidos
+        require VIEWS_PATH . '/gastos.php';
+    } else {
+        $this->redirectToLogin();
+    }
+    }
+
+    // Cargar la vista de git add . gasto
+    public function agregarGasto() {
+        require VIEWS_PATH . '/agregarGasto.php';
+    }
+
+    // Guardar el gasto en la base de datos
+    public function guardarGasto() {
+        if ($this->verificarSesion()) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $nombre = $_POST['nombre-gasto'];
+                $monto = $_POST['monto'];
+                $dia = $_POST['dia'];
+                $mes = $_POST['mes'];
+                $anio = $_POST['año'];
+                $fecha = "$anio-$mes-$dia";
+
+                // Validar campos vacíos
+                if (empty($nombre) || empty($monto) || empty($dia) || empty($mes) || empty($anio)) {
+                    echo "Todos los campos son obligatorios.";
+                    return;
+                }
+
+                // Validar que el monto sea numérico
+                if (!is_numeric($monto)) {
+                    echo "El monto debe ser un número válido.";
+                    return;
+                }
+
+                // Obtener el ID del usuario autenticado desde la sesión
+                $usuario_id = $_SESSION['usuario_id'];
+
+                // Instanciar el modelo y guardar el gasto usando la conexión existente
+                $gastoModel = new GastoModel($this->model->getDB());
+
+                if ($gastoModel->guardarGasto($usuario_id, $nombre, $monto, $fecha)) {
+                    header('Location: /MoneyMinder/index.php/gastos');
+                    exit();
+                } else {
+                    echo "Error al guardar el gasto.";
+                }
+            }
+        } else {
+            $this->redirectToLogin();
+        }
+    }
+
+    // Función para obtener los gastos
+    public function getAllGastos() {
+        $query = $this->model->getDB()->prepare("SELECT * FROM gastos");
+        $query->execute();
+        return $query->get_result()->fetch_all(MYSQLI_ASSOC);
+    }
+   
+    public function eliminarGasto() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'];
+            $gastoModel = new GastoModel($this->model->getDB());
+            if ($gastoModel->eliminarGasto($id)) {
+                header('Location: /MoneyMinder/index.php/gastos');
+                exit();
+            } else {
+                echo "Error al eliminar el gasto.";
+            }
+        }
+    }
+
+    // Editar gasto
+    public function editarGasto($id) {
+        // Obtener el gasto por ID utilizando el modelo
+        $gastoModel = new GastoModel($this->model->getDB()); // Usa la conexión a la base de datos
+        $gasto = $gastoModel->getGastoById($id);
+        
+        // Verificar si se encontró el gasto
+        if ($gasto) {
+            // Cargar la vista de edición con los datos del gasto
+            require VIEWS_PATH . '/editarGasto.php';
+        } else {
+            // Mostrar un mensaje si no se encuentra el gasto
+            echo "Gasto no encontrado.";
+        }
+    }
+
+    public function actualizarGasto() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'];
+            $nombre = $_POST['nombre'];
+            $monto = $_POST['monto'];
+            $fecha = $_POST['fecha'];
+    
+            // Validar campos vacíos
+            if (empty($nombre) || empty($monto) || empty($fecha)) {
+                echo "Todos los campos son obligatorios.";
+                return;
+            }
+    
+            $gastoModel = new GastoModel($this->model->getDB());
+            if ($gastoModel->updateGasto($id, $nombre, $monto, $fecha)) {
+                header("Location: /MoneyMinder/index.php/gastos");
+                exit();
+            } else {
+                echo "Error al actualizar el gasto.";
+            }
+        } else {
+            echo "Método no permitido.";
+        }
+    }
+
+
+
+
 }
 ?>
