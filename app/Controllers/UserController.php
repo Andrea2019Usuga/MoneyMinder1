@@ -51,7 +51,7 @@ class UserController
                       </script>';
                 exit();
             } else {
-                //almacenamos en una variable de sesion el nombre y el id del usuario
+                //almacenamos en una variable de sesion el nombre y el id del usuarioPP
                 $_SESSION['usuario_id'] = $usuario['id'];
                 $_SESSION['nombre_usuario'] = $usuario['nombre'];
                 header("Location: /MoneyMinder/index.php/menuPrincipalIngresos");
@@ -76,7 +76,36 @@ class UserController
         // Si no hay sesión ni cookie válida, retornar false
         return false;
     }
+    // Metodo que envia correo para recordar contraseña
+    public function recordarClave() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $correo = $_POST["email"];
+            $resultado = $this->model->sendPassword($correo);
 
+            if ($resultado) {
+                $para      = "$correo";
+                $titulo    = "SU CONTRASEÑA PARA ACCEDER AL SISTEMA ES";
+                $mensaje   = "Estimado usuario, su contrasena para acceder al sistema es ".$resultado['contrasena'];
+                $cabeceras = "From: appmoneyminder@gmail.com";
+
+                if (mail($para, $titulo, $mensaje, $cabeceras))
+                {
+                    header("Location: /MoneyMinder/index.php/inicioSesion");
+                exit();
+                }
+                else
+                {
+                    echo "fallo el envio de correo";
+                }
+            } else {
+                echo '<script type="text/javascript">
+                        alert("El correo ingresado no existe en la base de datos");
+                        window.location.href="/MoneyMinder/index.php/crearCuenta";
+                      </script>';
+                exit();
+            }
+        }
+    }
     // Cargar la vista de git add . ingreso
     public function agregarIngreso() {
         require VIEWS_PATH . '/agregarIngreso.php';

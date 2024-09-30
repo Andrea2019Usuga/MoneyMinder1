@@ -29,6 +29,9 @@ switch ($uri) {
     case '/MoneyMinder/index.php/recuperarClave':
         $controller->recuperarClave();
         break;
+    case '/MoneyMinder/index.php/requestReset':
+            $controller->recordarClave();
+            break;
     case '/MoneyMinder/index.php/menuPrincipalIngresos':
         $controller->mostrarMenuPrincipalIngresos();
         break;

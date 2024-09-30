@@ -34,7 +34,20 @@ class UsersModel
             return $user;
         }
     }
-
+    //Método que consulta la clave asociada al correo ingresado y la envia por correo
+    public function sendPassword($correo) {
+        $stmt = $this->db->prepare('SELECT contrasena FROM usuarios WHERE correo_electronico = :email' );
+        $stmt->bindParam(':email', $correo);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        print_r($user);
+        if (empty($user)) {
+           return null;
+        } else {
+            echo "envia la contrasena";
+            return $user;
+        }
+    }
     // Método para crear un nuevo usuario en la base de datos
     public function createUser($nombre, $apellido, $fechanacimiento, $correo, $clave) {
         try {
