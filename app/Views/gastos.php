@@ -56,7 +56,7 @@ if (isset($_SESSION['usuario_id'])) {
                 </thead>
                 <tbody>
                     <?php if (isset($gastos) && is_array($gastos)): ?>
-                        <?php foreach ($gastos as $gastos): ?>
+                        <?php foreach ($gastos as $gasto): ?>
                             <tr>
                                 <td><?php echo htmlspecialchars($gasto['nombre']); ?></td>
                                 <td><?php echo htmlspecialchars($gasto['monto']); ?></td>
