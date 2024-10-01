@@ -97,7 +97,7 @@ switch ($uri) {
     case '/MoneyMinder/index.php/editarPerfil':
         $controller->editarPerfil();
         break;
-   // case '/MoneyMinder/index.php/cerrarSesion':  // Mueve este caso dentro del switch correctamente
+    case '/MoneyMinder/index.php/cerrarSesion':  
         $controller->cerrarSesion(); 
         break;
     default:

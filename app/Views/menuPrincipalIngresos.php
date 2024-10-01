@@ -91,11 +91,25 @@ if (isset($_SESSION['usuario_id'])) {
         </section>
     </main>
 
-    <script>
-    function cerrarSesion() {
-        window.location.href = 'http://localhost/MoneyMinder/index.php';
-    }
-    </script>
+<script>
+function cerrarSesion() {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Vas a cerrar tu sesión.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#b4a7d6',
+        cancelButtonColor: '#b4a7d6',
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Redirigir a la ruta de cierre de sesión
+            window.location.href = '/MoneyMinder/index.php/cerrarSesion';
+        }
+    });
+}
+</script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     function confirmDelete(id, form) {
@@ -104,8 +118,8 @@ document.addEventListener('DOMContentLoaded', function () {
             text: "Esta acción no se puede deshacer.",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
+            confirmButtonColor: '#b4a7d6',
+            cancelButtonColor: '#b4a7d6',
             confirmButtonText: 'Sí, eliminar',
             cancelButtonText: 'Cancelar'
         }).then((result) => {

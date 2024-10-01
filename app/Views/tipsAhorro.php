@@ -6,6 +6,8 @@
     <title>Tips de Ahorro</title>
     <link rel="stylesheet" href="/MoneyMinder/public/css/tipsAhorro.css">
     <script src="/MoneyMinder/public/js/tipsAhorro.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 </head>
 <body>
 <?php
@@ -49,6 +51,25 @@ if (isset($_SESSION['usuario_id'])) {
    
  
     </main>
+<script>
+function cerrarSesion() {
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Vas a cerrar tu sesión.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#b4a7d6',
+        cancelButtonColor: '#b4a7d6',
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Redirigir a la ruta de cierre de sesión
+            window.location.href = '/MoneyMinder/index.php/cerrarSesion';
+        }
+    });
+}
+</script>
     <footer>
         <p>© 2024 Money Minder</p>
     </footer>
