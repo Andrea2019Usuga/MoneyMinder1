@@ -392,7 +392,9 @@ class UserController
         }
     }
 
-
+    public function mostrartipsAhorro() {
+        require VIEWS_PATH . '/tipsAhorro.php';
+    }
 
 
 }

@@ -35,9 +35,9 @@ if (isset($_SESSION['usuario_id'])) {
             <button class="menu-item selected no-pointer">Menú principal</button>
             <a href="/MoneyMinder/index.php/menuPrincipalIngresos" class="menu-item">Ingresos</a>
             <a href="/MoneyMinder/index.php/gastos" class="menu-item selected">Gastos</a>
-            <a href="12metas de ahorro.html" class="menu-item">Metas de ahorro</a>
-            <a href="15tips de ahorro.html" class="menu-item">Tips de ahorro</a>
-            <a href="18configuracion idioma.html" class="menu-item">Configuración</a>
+            <a href="/MoneyMinder/index.php/metasDeAhorro" class="menu-item">Metas de ahorro</a>
+            <a href="/MoneyMinder/index.php/tipsAhorro" class="menu-item">Tips de ahorro</a>
+            <a href="/MoneyMinder/index.php/configuracionCambiarContrasena" class="menu-item">Configuración</a>
         </aside>
         <section class="content">
             <h1>Gastos</h1>
@@ -70,7 +70,7 @@ if (isset($_SESSION['usuario_id'])) {
                                     </form>
 
                                    
-                                    <form action="/MoneyMinder/index.php/eliminarGasto" method="post">
+                                    <form action="/MoneyMinder/index.php/eliminarGasto" method="post"style="display: inline-block;">
                                         <input type="hidden" name="id" value=<?php echo $gasto['id']; ?> />
                                         <button class='delete-button' type="submit">🗑️</button>
                                     </form>

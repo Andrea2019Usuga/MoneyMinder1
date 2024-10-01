@@ -88,7 +88,12 @@ switch ($uri) {
         case '/MoneyMinder/index.php/actualizarGasto':
                 $controller->actualizarGasto();
                 break;    
-        
+
+    case '/MoneyMinder/index.php/tipsAhorro':
+            $controller->mostrartipsAhorro(); 
+            break;      
+
+
     case '/MoneyMinder/index.php/editarPerfil':
         $controller->editarPerfil();
         break;
