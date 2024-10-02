@@ -438,5 +438,15 @@ class UserController
         }
     }
 
+    public function mostrarsoporteyAyuda() {
+        if ($this->verificarSesion()) {
+            // Cargar la vista de Soporte y Ayuda
+            require VIEWS_PATH . '/soporteyAyuda.php';
+        } else {
+            // Si no está autenticado, redirigir al inicio de sesión
+            $this->redirectToLogin();
+        }
+    }
+
 }
 ?>

@@ -103,6 +103,9 @@ switch ($uri) {
     case '/MoneyMinder/index.php/configuracionCambiarContrasena':  
         $controller->mostrarconfiguracionCambiarContrasena(); 
         break;
+    case '/MoneyMinder/index.php/eliminarCuenta':  
+        $controller->mostrareliminarCuenta(); 
+        break;
     case '/MoneyMinder/index.php/soporteyAyuda':  
         $controller->mostrarsoporteyAyuda(); 
          break;        
