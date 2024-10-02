@@ -428,5 +428,15 @@ class UserController
     }
 
 
+    public function mostrarconfiguracionCambiarContrasena() {
+        if ($this->verificarSesion()) {
+            // Cargar la vista de cambio de contraseña
+            require VIEWS_PATH . '/configuracionCambiarContrasena.php';
+        } else {
+            // Si no está autenticado, redirigir al inicio de sesión
+            $this->redirectToLogin();
+        }
+    }
+
 }
 ?>

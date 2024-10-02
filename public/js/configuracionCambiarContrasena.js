@@ -3,7 +3,7 @@ function toggleDropdown() {
     dropdown.classList.toggle('show');
 }
 
-// Close the dropdown if the user clicks outside of it
+// Cerrar el menú desplegable si el usuario hace clic fuera de él
 window.onclick = function(event) {
     if (!event.target.matches('.dropdown-toggle')) {
         const dropdowns = document.getElementsByClassName("dropdown-content");

@@ -100,6 +100,12 @@ switch ($uri) {
     case '/MoneyMinder/index.php/cerrarSesion':  
         $controller->cerrarSesion(); 
         break;
+    case '/MoneyMinder/index.php/configuracionCambiarContrasena':  
+        $controller->mostrarconfiguracionCambiarContrasena(); 
+        break;
+    case '/MoneyMinder/index.php/soporteyAyuda':  
+        $controller->mostrarsoporteyAyuda(); 
+         break;        
     default:
         $controller->index();  // Mantén solo un default
         break;
