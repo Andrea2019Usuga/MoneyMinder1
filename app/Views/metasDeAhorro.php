@@ -115,40 +115,61 @@ function cerrarSesion() {
 
 <script>
 function cerrarSesion() {
-    window.location.href = '/MoneyMinder/index.php';
+    Swal.fire({
+        title: '¿Estás seguro?',
+        text: "Vas a cerrar tu sesión.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#b4a7d6',
+        cancelButtonColor: '#b4a7d6',
+        confirmButtonText: 'Sí, cerrar sesión',
+        cancelButtonText: 'Cancelar'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // Redirigir a la ruta de cierre de sesión
+            window.location.href = '/MoneyMinder/index.php/cerrarSesion';
+        }
+    });
 }
-
+</script>
+<script>
 document.addEventListener('DOMContentLoaded', function () {
+    function confirmDelete(id, form) {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "Esta acción no se puede deshacer.",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#b4a7d6',
+            cancelButtonColor: '#b4a7d6',
+            confirmButtonText: 'Sí, eliminar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Enviar la solicitud de eliminación
+                form.submit();
+                Swal.fire(
+                    'Eliminado!',
+                    'La meta de ahorro ha sido eliminada.',
+                    'success'
+                );
+            }
+        });
+    }
+
     // Agregar eventos a los botones de eliminar
     document.querySelectorAll('.delete-button').forEach(function (button) {
         button.addEventListener('click', function (event) {
             event.preventDefault(); // Evitar el envío del formulario predeterminado
-            const form = this.closest('.delete-form');
+            const form = this.closest('form');
             const id = this.getAttribute('data-id');
-            Swal.fire({
-                title: '¿Estás seguro?',
-                text: "Esta acción no se puede deshacer.",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Sí, eliminar',
-                cancelButtonText: 'Cancelar'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    // Enviar la solicitud de eliminación
-                    form.submit();
-                    Swal.fire(
-                        'Eliminado!',
-                        'La meta de ahorro ha sido eliminada.',
-                        'success'
-                    );
-                }
-            });
+            confirmDelete(id, form);
         });
     });
 });
 </script>
-
+    <footer>
+        <p>© 2024 Money Minder</p>
+    </footer>
 </body>
 </html>
