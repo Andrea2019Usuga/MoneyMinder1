@@ -97,7 +97,17 @@ class UsersModel
         return $query->execute();
     }
     
-
+    // Método para eliminar un usuario por su ID
+    public function deleteUser($userId) {
+        $stmt = $this->db->prepare("DELETE FROM usuarios WHERE id = ?");
+        if ($stmt) {
+            $stmt->bind_param("i", $userId);
+            $result = $stmt->execute();
+            $stmt->close();
+            return $result;
+        }
+        return false;
+    }
     
 }
 

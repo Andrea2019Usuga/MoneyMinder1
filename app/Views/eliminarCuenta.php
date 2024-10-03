@@ -4,8 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Eliminar Cuenta</title>
-    <link rel="stylesheet" href="css/21eliminar cuenta.css">
-    <script src="js/21eliminar cuenta.js" defer></script>
+    <link rel="stylesheet" href="/MoneyMinder/public/css/eliminarCuenta.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="/MoneyMinder/public/js/eliminarCuenta.js"defer></script>
 </head>
 <body>
     <header>
@@ -14,29 +15,29 @@
     <main>
         <aside class="sidebar">
             <button class="menu-item selected no-pointer">Menú principal</button>
-            <a href="6menu principal ingresos.html" class="menu-item">Ingresos</a>
-            <a href="9gastos.html" class="menu-item">Gastos</a>
-            <a href="12metas de ahorro.html" class="menu-item">Metas de ahorro</a>
-            <a href="15tips de ahorro.html" class="menu-item">Tips de ahorro</a>
+            <a href="/MoneyMinder/index.php/menuPrincipalIngresos" class="menu-item">Ingresos</a>
+            <a href="/MoneyMinder/index.php/gastos" class="menu-item">Gastos</a>
+            <a href="/MoneyMinder/index.php/metasDeAhorro" class="menu-item">Metas de ahorro</a>
+            <a href="/MoneyMinder/index.php/tipsAhorro" class="menu-item">Tips de ahorro</a>
             <div class="dropdown">
                 <button class="menu-item selected dropdown-toggle" onclick="toggleDropdown()">Configuración</button>
                 <div class="dropdown-content">
-                    <a href="18configuracion idioma.html" class="menu-item">Idioma</a>
-                    <a href="19restablecer contraseña.html" class="menu-item">Restablecer contraseña</a>
-                    <a href="20cambiar contraseña.html" class="menu-item">Cambiar contraseña</a>
-                    <a href="21eliminar cuenta.html" class="menu-item selected">Eliminar Cuenta</a>
-                    <a href="23soporte y ayuda.html" class="menu-item">Soporte y ayuda</a>
+                    <a href="/MoneyMinder/index.php/configuracionCambiarContrasena" class="menu-item">Cambiar contraseña</a>
+                    <a href="/MoneyMinder/index.php/eliminarCuenta" class="menu-item selected">Eliminar Cuenta</a>
+                    <a href="/MoneyMinder/index.php/preguntasFrecuentes" class="menu-item">Preguntas frecuentes</a>
                 </div>
             </div>
         </aside>
         <section class="content">
             <h1>Eliminar Cuenta</h1>
             <div class="delete-container">
-                <p>Quieres eliminar tu cuenta</p>
-                <div class="buttons">
-                    <a href="21eliminar cuenta.html" class="btn no">No</a>
-                    <a href="22notificación eliminar cuenta.html" class="btn yes">Sí</a>
-                </div>
+                <p>¿Estás seguro de que deseas eliminar tu cuenta? Esta acción es irreversible.</p>
+                <form action="/MoneyMinder/index.php/eliminarCuentaConfirm" method="POST">
+                    <div class="buttons">
+                        <button type="submit" name="confirmar" value="no" class="btn no">No</button>
+                        <button type="submit" name="confirmar" value="si" class="btn yes">Sí</button>
+                    </div>
+                </form>
             </div>
         </section>
     </main>

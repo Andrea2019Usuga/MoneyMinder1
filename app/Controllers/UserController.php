@@ -438,6 +438,54 @@ class UserController
         }
     }
 
+    // Mostrar la vista de eliminar cuenta
+    public function mostrareliminarCuenta() {
+        require VIEWS_PATH . '/eliminarCuenta.php';
+    }
+
+    // Manejar la confirmación de eliminación de cuenta
+    public function eliminarCuentaConfirm() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $confirmar = $_POST['confirmar'] ?? 'no';
+
+            if ($confirmar === 'si') {
+                // Obtener el ID del usuario desde la sesión
+                $usuario_id = $_SESSION['usuario_id'] ?? null;
+
+                if ($usuario_id) {
+                    // Instanciar el modelo y eliminar el usuario
+                    if ($this->model->deleteUser($usuario_id)) {
+                        // Destruir la sesión
+                        $this->cerrarSesion();
+
+                        // Redirigir a una página de confirmación o inicio de sesión
+                        header("Location: /MoneyMinder/index.php/inicioSesion");
+                        exit();
+                    } else {
+                        echo '<script type="text/javascript">
+                                alert("Error al eliminar la cuenta. Inténtalo de nuevo.");
+                                window.history.back();
+                              </script>';
+                        exit();
+                    }
+                } else {
+                    echo '<script type="text/javascript">
+                            alert("No se pudo identificar al usuario.");
+                            window.location.href="/MoneyMinder/index.php/inicioSesion";
+                          </script>';
+                    exit();
+                }
+            } else {
+                // Si el usuario decide no eliminar la cuenta, redirigir al menú principal
+                header("Location: /MoneyMinder/index.php/menuPrincipalIngresos");
+                exit();
+            }
+        } else {
+            echo "Método no permitido.";
+            exit();
+        }
+    }
+
     public function mostrarpreguntasFrecuentes() {
         if ($this->verificarSesion()) {
             // Cargar la vista de preguntas frecuentes 

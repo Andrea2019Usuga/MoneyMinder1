@@ -106,6 +106,13 @@ switch ($uri) {
     case '/MoneyMinder/index.php/eliminarCuenta':  
         $controller->mostrareliminarCuenta(); 
         break;
+    case '/MoneyMinder/index.php/eliminarCuentaConfirm':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+             $controller->eliminarCuentaConfirm();
+        } else {
+            echo "Método no permitido.";
+            }
+            break;    
     case '/MoneyMinder/index.php/preguntasFrecuentes':  
         $controller->mostrarpreguntasFrecuentes(); 
          break;        
