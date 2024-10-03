@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Soporte y Ayuda</title>
-    <link rel="stylesheet" href="/MoneyMinder/public/css/soporteyAyuda.css">
-    <script src="/MoneyMinder/public/js/soporteyAyuda.js"></script>
+    <title>Preguntas frecuentes</title>
+    <link rel="stylesheet" href="/MoneyMinder/public/css/preguntasFrecuentes.css">
+    <script src="/MoneyMinder/public/js/preguntasFrecuentes.js"defer></script>
 </head>
 <body>
     <header>
@@ -13,7 +13,7 @@
     </header>
     
     <div class="faq-container">
-        <h1>Soporte y Ayuda</h1>
+        <h1>Preguntas Frecuentes</h1>
         <div class="faq-item">
             <div class="question">
                 ¿Cómo funciona esta aplicación para ayudarme a ahorrar dinero?
@@ -38,7 +38,7 @@
                 <span class="arrow">▼</span>
             </div>
             <div class="answer">
-                <p>Si experimentas problemas técnicos, primero revisa la sección de Soporte y Ayuda en la aplicación, donde encontrarás respuestas a preguntas frecuentes y guías para resolver problemas comunes.Si el problema persiste, por favor contáctanos a través del correo electrónico appmoneyminder@gmail.com</p>
+                <p>Si experimentas problemas técnicos, primero revisa la sección de preguntas frecuentes en la aplicación, donde encontrarás respuestas a preguntas frecuentes y guías para resolver problemas comunes.Si el problema persiste, por favor contáctanos a través del correo electrónico appmoneyminder@gmail.com</p>
             </div>
         </div>
         <div class="faq-item">
@@ -51,26 +51,6 @@
             </div>
         </div>
     </div>
-    <script>
-// Seleccionamos todas las preguntas
-const questions = document.querySelectorAll('.question');
-
-// Añadimos un event listener a cada una
-questions.forEach(question => {
-  question.addEventListener('click', () => {
-    // Obtenemos el siguiente elemento (que es la respuesta)
-    const answer = question.nextElementSibling;
-
-    // Alternamos el estado de visibilidad
-    if (answer.style.display === 'block') {
-      answer.style.display = 'none';
-      question.querySelector('.arrow').textContent = '▼'; // Cambiamos la flecha a ▼
-    } else {
-      answer.style.display = 'block';
-      question.querySelector('.arrow').textContent = '▲'; // Cambiamos la flecha a ▲
-    }
-  });
-});
-</script>
+    
 </body>
 </html>

@@ -438,10 +438,10 @@ class UserController
         }
     }
 
-    public function mostrarsoporteyAyuda() {
+    public function mostrarpreguntasFrecuentes() {
         if ($this->verificarSesion()) {
-            // Cargar la vista de Soporte y Ayuda
-            require VIEWS_PATH . '/soporteyAyuda.php';
+            // Cargar la vista de preguntas frecuentes 
+            require VIEWS_PATH . '/preguntasFrecuentes.php';
         } else {
             // Si no está autenticado, redirigir al inicio de sesión
             $this->redirectToLogin();

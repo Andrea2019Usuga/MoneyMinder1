@@ -25,7 +25,7 @@
                 <div class="dropdown-content">
                     <a href="/MoneyMinder/index.php/configuracionCambiarContrasena" class="menu-item selected">Cambiar contraseña</a>
                     <a href="/MoneyMinder/index.php/eliminarCuenta" class="menu-item">Eliminar Cuenta</a>
-                    <a href="/MoneyMinder/index.php/soporteyAyuda" class="menu-item">Soporte y ayuda</a>
+                    <a href="/MoneyMinder/index.php/preguntasFrecuentes" class="menu-item">Preguntas frecuentes</a>
                 </div>
             </div>
         </aside>

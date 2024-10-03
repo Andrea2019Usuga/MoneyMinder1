@@ -106,8 +106,8 @@ switch ($uri) {
     case '/MoneyMinder/index.php/eliminarCuenta':  
         $controller->mostrareliminarCuenta(); 
         break;
-    case '/MoneyMinder/index.php/soporteyAyuda':  
-        $controller->mostrarsoporteyAyuda(); 
+    case '/MoneyMinder/index.php/preguntasFrecuentes':  
+        $controller->mostrarpreguntasFrecuentes(); 
          break;        
     default:
         $controller->index();  // Mantén solo un default
