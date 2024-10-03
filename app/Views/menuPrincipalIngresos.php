@@ -8,14 +8,14 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/MoneyMinder/public/js/menuPrincipalIngresos.js"></script>
-    <script src="/MoneyMinder/public/js/menuPrincipalIngresos.js"></script>
+    
 </head>
 <body>
 
 <?php
 //porcion de codigo para guardar el nombre de usuario
 if (isset($_SESSION['usuario_id'])) {
-    //asignar a variable
+    //asignar a variable|   
     $userid = $_SESSION['usuario_id'];
     $username= $_SESSION['nombre_usuario'];
 }
@@ -28,7 +28,7 @@ if (isset($_SESSION['usuario_id'])) {
             
             <div class="user-details">
                 <span><?php echo ($username)?></span>
-                <button onclick="window.location.href='16Editar perfil.html'">Editar Perfil</button>
+                <a href="/MoneyMinder/index.php/editarPerfil" class="add-button">Editar Perfil</a>
                 <button type="button" onclick="cerrarSesion()">Cerrar Sesión</button>
             </div>
         </div>
@@ -65,9 +65,7 @@ if (isset($_SESSION['usuario_id'])) {
                                 <td><?php echo htmlspecialchars($ingreso['monto']); ?></td>
                                 <td><?php echo htmlspecialchars($ingreso['fecha']); ?></td>
                                 <td>
-                                    <!--<button class='edit-button' onclick="location.href='/MoneyMinder/index.php?action=editarIngreso&id=<?php echo $ingreso['id']; ?>'">✏️</button>
-                                    <!--<button class='delete-button' onclick="location.href='/MoneyMinder/index.php?action=eliminarIngreso&id=<?php echo $ingreso['id']; ?>'">🗑️</button>-->
-                                   
+                                    
                                     <form action="/MoneyMinder/index.php/editarIngreso" method="get" style="display: inline-block;">
                                         <input type="hidden" name="id" value="<?php echo $ingreso['id']; ?>">
                                         <button class="edit-button" type="submit">✏️</button>

@@ -22,7 +22,20 @@ class IngresoModel {
         $stmt->execute();
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-    
+     // Método para obtener todos los ingresos de la base de datos
+     public function getAllIngresos() {
+        // Usamos la conexión de la base de datos
+        $db = Database::getConnection();
+        
+        // Consulta SQL para obtener los ingresos
+        $query = "SELECT * FROM ingresos ORDER BY fecha DESC";  // Suponiendo que tienes la columna 'fecha'
+        
+        // Ejecutamos la consulta
+        $stmt = $db->query($query);
+        
+        // Retornamos los resultados
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
     public function getIngresoById($id) {
         $stmt = $this->db->prepare("SELECT * FROM ingresos WHERE id = :id");
         $stmt->bindParam(':id', $id, PDO::PARAM_INT);
