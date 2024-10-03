@@ -2,6 +2,7 @@
 require_once 'C:/xampp/htdocs/MoneyMinder/app/Models/UsersModel.php';
 require_once 'C:/xampp/htdocs/MoneyMinder/app/Models/IngresoModel.php';
 require_once 'C:/xampp/htdocs/MoneyMinder/app/Models/GastoModel.php';
+require_once 'C:/xampp/htdocs/MoneyMinder/app/Models/MetasAhorroModel.php'; // Asegúrate de incluir este modelo
 require_once 'C:/xampp/htdocs/MoneyMinder/app/Core/DB.php';
 
 class UserController
@@ -337,7 +338,7 @@ class UserController
         $query->execute();
         return $query->get_result()->fetch_all(MYSQLI_ASSOC);
     }
-   
+
     public function eliminarGasto() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $id = $_POST['id'];
@@ -391,7 +392,127 @@ class UserController
             echo "Método no permitido.";
         }
     }
+    public function metasDeAhorro() {
+        // Verifica si hay una sesión activa
+        if ($this->verificarSesion()) {
+            $usuario_id = $_SESSION['usuario_id']; // Obtiene el ID del usuario de la sesión
+            $metasAhorroModel = new MetasAhorroModel($this->model->getDB()); // Inicializa el modelo de metas de ahorro
+            $metas = $metasAhorroModel->getMetasPorUsuario($usuario_id); // Obtiene las metas de ahorro del usuario
+            require VIEWS_PATH . '/metasDeAhorro.php'; // Incluye la vista
+        } else {
+            $this->redirectToLogin(); // Redirige al inicio de sesión si no hay sesión activa
+        }
+    }
+    public function agregarMetaAhorro() {
+        require VIEWS_PATH . '/agregarMetaAhorro.php';
+    }
+    
+    public function guardarMetaAhorro() {
+        if ($this->verificarSesion()) {
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Obtener los datos del formulario
+                $nombre = $_POST['nombre-meta'];
+                $montoAhorrar = $_POST['monto-ahorrar'];
+                $montoActual = $_POST['monto-actual'];
+                $diaInicio = $_POST['dia-inicio'];
+                $mesInicio = $_POST['mes-inicio'];
+                $anioInicio = $_POST['año-inicio'];
+                $diaFin = $_POST['dia-fin'];
+                $mesFin = $_POST['mes-fin'];
+                $anioFin = $_POST['año-fin'];
+    
+                // Validación de campos obligatorios
+                if (empty($nombre) || empty($montoAhorrar) || empty($montoActual) || 
+                    empty($diaInicio) || empty($mesInicio) || empty($anioInicio) || 
+                    empty($diaFin) || empty($mesFin) || empty($anioFin)) {
+                    echo "Todos los campos son obligatorios.";
+                    return;
+                }
+    
+                // Validación de montos
+                if (!is_numeric($montoAhorrar) || !is_numeric($montoActual)) {
+                    echo "Los montos deben ser números válidos.";
+                    return;
+                }
+    
+                // Validación de fechas
+                $fechaInicio = "$anioInicio-$mesInicio-$diaInicio";
+                $fechaFin = "$anioFin-$mesFin-$diaFin";
+    
+                if ($fechaInicio >= $fechaFin) {
+                    echo "La fecha de inicio debe ser anterior a la fecha de fin.";
+                    return;
+                }
+    
+                // Obtener el ID del usuario de la sesión
+                $usuario_id = $_SESSION['usuario_id'];
+                $metasAhorroModel = new MetasAhorroModel($this->model->getDB());
+    
+                // Guardar la meta de ahorro
+                if ($metasAhorroModel->guardarMetaAhorro($usuario_id, $nombre, $montoAhorrar, $montoActual, $fechaInicio, $fechaFin)) {
+                    header('Location: /MoneyMinder/index.php/metasDeAhorro'); // Cambia a la ruta deseada
+                    exit();
+                } else {
+                    echo "Error al guardar la meta de ahorro.";
+                }
+            }
+        } else {
+            $this->redirectToLogin();
+        }
+    }
+    
+    public function eliminarMetaAhorro() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $id = $_POST['id'] ?? '';
+            $metasAhorroModel = new MetasAhorroModel($this->model->getDB());
+            if ($metasAhorroModel->eliminarMetaAhorro($id)) {
+                header('Location: /MoneyMinder/index.php/metasDeAhorro');
+                exit();
+            } else {
+                echo "Error al eliminar la meta de ahorro.";
+            }
+        }
+    }
 
+      // Método para mostrar la vista de editar meta de ahorro
+    public function editarMetaAhorro($id) {
+        $metasAhorroModel = new MetasAhorroModel($this->model->getDB());
+        $metaAhorro = $metasAhorroModel->getMetaAhorroById($id);
+        
+        if ($metaAhorro) {
+            // Carga la vista de edición pasando la meta de ahorro
+            require VIEWS_PATH . '/editarMetaAhorro.php'; // Asegúrate de tener esta vista
+        } else {
+            echo "Meta de ahorro no encontrada.";
+        }
+    }
+    
+    
+    // Método para actualizar una meta de ahorro
+    public function actualizarMetaAhorro() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Obtén los datos del formulario
+            $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+            $nombre = filter_input(INPUT_POST, 'nombre', FILTER_SANITIZE_STRING);
+            $monto_ahorrar = filter_input(INPUT_POST, 'monto_ahorrar', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+            $monto_actual = filter_input(INPUT_POST, 'monto_actual', FILTER_SANITIZE_NUMBER_FLOAT, FILTER_FLAG_ALLOW_FRACTION);
+            $fecha_inicio = filter_input(INPUT_POST, 'fecha_inicio', FILTER_SANITIZE_STRING);
+            $fecha_fin = filter_input(INPUT_POST, 'fecha_fin', FILTER_SANITIZE_STRING);
+    
+            // Llama al modelo para actualizar la meta de ahorro
+            $metasAhorroModel = new MetasAhorroModel($this->model->getDB());
+            $resultado = $metasAhorroModel->updateMetaAhorro($id, $nombre, $monto_ahorrar, $monto_actual, $fecha_inicio, $fecha_fin);
+    
+            if ($resultado) {
+                // Redirige a metasDeAhorro.php si la actualización fue exitosa
+                header('Location: /MoneyMinder/index.php/metasDeAhorro');
+                exit; // Asegúrate de usar exit después de redirigir
+            } else {
+                echo "Error al actualizar la meta de ahorro.";
+            }
+        }
+    }
+    
     public function mostrartipsAhorro() {
         require VIEWS_PATH . '/tipsAhorro.php';
     }

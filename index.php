@@ -100,6 +100,31 @@ switch ($uri) {
     case '/MoneyMinder/index.php/cerrarSesion':  
         $controller->cerrarSesion(); 
         break;
+    case '/MoneyMinder/index.php/metasDeAhorro':
+        $controller->metasDeAhorro();
+        break; 
+    case '/MoneyMinder/index.php/agregarMetaAhorro':
+        $controller->agregarMetaAhorro();
+        break;
+    case '/MoneyMinder/index.php/eliminarMetaAhorro':
+        $controller->eliminarMetaAhorro();
+        break;
+    case '/MoneyMinder/index.php/editarMetaAhorro':
+        if (isset($_GET['id'])) {
+            $controller->editarMetaAhorro($_GET['id']); // Pasar el ID al controlador
+        } else {
+            echo "ID no especificado.";
+        }
+        break;
+
+    case '/MoneyMinder/index.php/actualizarMetaAhorro':
+        $controller->actualizarMetaAhorro();
+        break;
+    
+        
+    case '/MoneyMinder/index.php/guardarMetaAhorro':
+        $controller->guardarMetaAhorro();
+        break;
     default:
         $controller->index();  // Mantén solo un default
         break;
