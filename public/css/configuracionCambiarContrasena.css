@@ -114,12 +114,6 @@ main {
     font-size: 16px; /* Ajusta el tamaño de fuente según sea necesario */
 }
 
-
-.sidebar .dropdown-toggle::after {
-    content: '��'; /* Cambiado para indicar despliegue hacia abajo */
-}
-
-
 .sidebar .dropdown-content {
     display: none;
     position: absolute;
@@ -164,7 +158,23 @@ main {
     background-color: #c58ae7;
 }
 
+/* Estilos para la flecha */
+#arrow {
+    transition: transform 0.3s ease; /* Añadir transición para el giro */
+}
 
+.dropdown-content.show + #arrow {
+    transform: rotate(180deg); /* Girar 180 grados cuando se muestre el dropdown */
+}
+/* Estilos para el botón de configuración */
+#config-button {
+    transition: transform 0.2s ease; /* Añadir transición para el movimiento */
+}
+
+/* Estilos para el botón al hacer clic */
+#config-button.active {
+    transform: translateY(-5px); /* Mover hacia arriba al hacer clic */
+}
 
 /* Media Queries for Responsiveness */
 @media (max-width: 768px) {

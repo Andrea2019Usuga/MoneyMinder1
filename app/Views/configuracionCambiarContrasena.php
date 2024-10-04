@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cambiar Contraseña</title>
-    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
     <!-- Enlace a las hojas de estilo CSS -->
     <link rel="stylesheet" href="/MoneyMinder/public/css/configuracionCambiarContrasena.css">
     <link rel="stylesheet" href="/MoneyMinder/public/css/cambiarContrasena.css">
@@ -25,11 +26,11 @@
             <a href="/MoneyMinder/index.php/metasDeAhorro" class="menu-item">Metas de ahorro</a>
             <a href="/MoneyMinder/index.php/tipsDeAhorro" class="menu-item">Tips de ahorro</a>
             <div class="dropdown">
-                <button class="menu-item selected dropdown-toggle" onclick="toggleDropdown()">
-                    Configuración
-                    <span class="arrow">&#9662;</span>
+                <button class="menu-item selected dropdown-toggle" id="config-button" onclick="toggleDropdown()">
+                Configuración
+                    <i id="arrow" class="fas fa-chevron-down"></i>
                 </button>
-                <div class="dropdown-content">
+            <div class="dropdown-content" role="menu">
                     <a href="/MoneyMinder/index.php/configuracionCambiarContrasena" class="menu-item selected">Cambiar contraseña</a>
                     <a href="/MoneyMinder/index.php/eliminarCuenta" class="menu-item">Eliminar Cuenta</a>
                     <a href="/MoneyMinder/index.php/soporteyAyuda" class="menu-item">Soporte y ayuda</a>

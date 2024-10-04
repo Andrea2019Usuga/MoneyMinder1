@@ -273,7 +273,7 @@ class UserController
     }
     
    // Función para mostrar la vista de gastos
-   public function mostrarGastos() {
+    public function mostrarGastos() {
     if ($this->verificarSesion()) {
         // Obtener el modelo de gastos y los datos de los gastos del usuario autenticado
         $gastoModel = new GastoModel($this->model->getDB());
