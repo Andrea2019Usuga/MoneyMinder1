@@ -548,6 +548,41 @@ class UserController
         exit();
     }
 
+    public function mostrarConfiguracionCambiarContrasena() {
+        if ($this->verificarSesion()) {
+            require VIEWS_PATH . '/configuracionCambiarContrasena.php';
+        } else {
+            $this->redirectToLogin();
+        }
+    }
+
+    public function cambiarContrasena() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Verificar si el ID del usuario está disponible en la sesión
+            $usuario_id = $_SESSION['usuario_id'] ?? null;
+
+            if ($usuario_id === null) {
+                // Redirigir a la página de inicio de sesión si no se encuentra el ID del usuario
+                $this->redirectToLogin();
+                return;
+            }
+
+            // Accede al nuevo nombre del campo
+            $nuevaContrasena = password_hash($_POST['new-password'], PASSWORD_DEFAULT);
+
+            $usuariosModel = new UsersModel($this->model->getDB());
+            $result = $usuariosModel->cambiarContrasena($usuario_id, $nuevaContrasena);
+
+            if ($result) {
+                // Redirigir a la página de inicio de sesión después de cambiar la contraseña
+                header("Location: /MoneyMinder/index.php/inicioSesion");
+                exit; // Asegúrate de terminar el script después de la redirección
+            } else {
+                echo "Error al cambiar la contraseña.";
+            }
+        }
+    }
+    
 
 }
 ?>

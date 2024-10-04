@@ -1,6 +1,4 @@
 function toggleDropdown() {
-    var dropdown = document.querySelector('.dropdown');
+    const dropdown = document.querySelector('.dropdown');
     dropdown.classList.toggle('show');
 }
-
-

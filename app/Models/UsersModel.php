@@ -97,8 +97,51 @@ class UsersModel
         return $query->execute();
     }
     
-
     
-}
+      // Cambiar contraseña
+      public function cambiarContrasena($usuario_id, $nuevaContrasena) {
+        try {
+            $stmt = $this->db->prepare("UPDATE usuarios SET contrasena = :nuevaContrasena WHERE id = :usuario_id");
+            $stmt->bindParam(':nuevaContrasena', $nuevaContrasena);
+            $stmt->bindParam(':usuario_id', $usuario_id);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            // Manejar error de base de datos
+            error_log("Error al cambiar contraseña: " . $e->getMessage());
+            return false;
+        }
+    }
 
+    // Obtener usuario por ID
+    public function obtenerUsuarioPorId($usuario_id) {
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE id = :usuario_id");
+            $stmt->bindParam(':usuario_id', $usuario_id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error al obtener usuario: " . $e->getMessage());
+            return null;
+        }
+    }
+
+    // Verificar si el usuario existe
+    public function verificarUsuario($email, $contrasena) {
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE email = :email");
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($usuario && password_verify($contrasena, $usuario['contrasena'])) {
+                return $usuario; // Retorna el usuario si las credenciales son válidas
+            }
+            return null; // Credenciales inválidas
+        } catch (PDOException $e) {
+            error_log("Error al verificar usuario: " . $e->getMessage());
+            return null;
+        }
+    }
+
+}
 ?>

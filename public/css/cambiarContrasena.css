@@ -1,0 +1,99 @@
+/* Contenedor principal del contenido */
+.content {
+    width: 100%;
+    max-width: 600px; /* Ancho máximo */
+    margin: 0 auto;
+    padding: 20px; /* Reducir el padding */
+    margin-top: 10px;
+    justify-content: center;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    max-height: 400px; /* Altura máxima */
+    overflow: auto; /* Permitir scroll si es necesario */
+}
+
+/* Contenedor del formulario */
+.form-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+/* Título del formulario */
+h2 {
+    font-size: 22px; /* Tamaño del título */
+    color: #333;
+    margin-bottom: 10px; /* Reducir margen inferior */
+    text-align: center;
+}
+
+/* Estilo de los párrafos */
+p {
+    font-size: 16px; /* Tamaño de párrafo */
+    color: #555;
+    margin-bottom: 10px; /* Reducir margen inferior */
+    text-align: center;
+}
+
+/* Contenedor de los campos de formulario */
+.form-group {
+    width: 90%;
+    margin-bottom: 10px; /* Reducir margen inferior */
+}
+
+/* Etiquetas del formulario */
+form label {
+    font-size: 14px; /* Tamaño de etiqueta */
+    color: #333;
+    margin-bottom: 5px; /* Espacio entre etiqueta y campo */
+    display: block;
+}
+
+/* Campos de entrada */
+form input {
+    width: 100%;
+    padding: 6px; /* Reducir padding */
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: 5px; /* Espacio superior */
+    font-size: 12px; /* Tamaño de la fuente */
+}
+
+/* Botón actualizar */
+#button-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 15px; /* Margen superior */
+}
+
+form button {
+    width: 30%; /* Ancho del botón */
+    padding: 8px; /* Padding del botón */
+    background-color: #B4A7D6;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px; /* Tamaño de la fuente */
+    font-weight: bold;
+}
+
+form button:hover {
+    background-color: #A68FCF;
+}
+
+/* Ajustes para dispositivos móviles */
+@media (max-width: 768px) {
+    .content {
+        width: 100%;
+        padding: 10px; /* Padding en dispositivos móviles */
+    }
+    
+    form button {
+        width: 80%; /* Ajuste para botón en móvil */
+        padding: 10px; /* Padding reducido */
+    }
+}

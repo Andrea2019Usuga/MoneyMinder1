@@ -121,10 +121,24 @@ switch ($uri) {
         $controller->actualizarMetaAhorro();
         break;
     
-        
     case '/MoneyMinder/index.php/guardarMetaAhorro':
         $controller->guardarMetaAhorro();
         break;
+
+        case '/MoneyMinder/index.php/cambiarContrasena':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                // Si es una solicitud POST, intentar cambiar la contraseña
+                $controller->cambiarContrasena(); // Cambiado a $controller
+            } else {
+                // Redirigir a la vista de configuración para cambiar la contraseña
+                $controller->mostrarConfiguracionCambiarContrasena(); // Cambiado a $controller
+            }
+            break;
+        case '/MoneyMinder/index.php/configuracionCambiarContrasena':
+            // Mostrar la vista para cambiar la contraseña
+            $controller->mostrarConfiguracionCambiarContrasena(); // Cambiado a $controller
+            break;
+    
     default:
         $controller->index();  // Mantén solo un default
         break;
