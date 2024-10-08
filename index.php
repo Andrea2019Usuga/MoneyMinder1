@@ -138,6 +138,18 @@ switch ($uri) {
             // Mostrar la vista para cambiar la contraseña
             $controller->mostrarConfiguracionCambiarContrasena(); // Cambiado a $controller
             break;
+            
+        case '/MoneyMinder/index.php/eliminarCuenta':
+            $controller->mostrarEliminarCuenta();
+            break;
+        
+        case '/MoneyMinder/index.php/eliminarCuentaConfirm':
+            if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+                $controller->eliminarCuenta(); // Llama al método que maneja la eliminación
+            } else {
+                echo "Método no permitido.";
+            }
+            break;    
     
     default:
         $controller->index();  // Mantén solo un default

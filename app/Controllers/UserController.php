@@ -582,6 +582,43 @@ class UserController
             }
         }
     }
+    // Mostrar la vista de eliminar cuenta
+    public function mostrarEliminarCuenta() {
+        if ($this->verificarSesion()) {
+            require VIEWS_PATH . '/eliminarCuenta.php';
+        } else {
+            $this->redirectToLogin();
+        }
+    }
+    
+    // Manejar la eliminación de cuenta
+        public function eliminarCuenta() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            // Verificar si el ID del usuario está disponible en la sesión
+            $usuario_id = $_SESSION['usuario_id'] ?? null;
+    
+            if ($usuario_id === null) {
+                // Redirigir a la página de inicio de sesión si no se encuentra el ID del usuario
+                $this->redirectToLogin();
+                return;
+            }
+    
+            // Llamar al modelo para eliminar el usuario
+            $usuariosModel = new UsersModel($this->model->getDB());
+            $result = $usuariosModel->deleteUser($usuario_id);
+    
+            if ($result) {
+                // Eliminar la sesión del usuario y redirigir
+                session_destroy(); // Destruir la sesión
+                header("Location: /MoneyMinder/index.php/inicioSesion");
+                exit; // Asegúrate de terminar el script después de la redirección
+            } else {
+                echo "Error al eliminar la cuenta.";
+            }
+        } else {
+            echo "Método no permitido.";
+        }
+    }
     
 
 }

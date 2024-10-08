@@ -97,9 +97,22 @@ class UsersModel
         return $query->execute();
     }
     
+    // Método para eliminar un usuario por su ID
+    public function deleteUser($usuario_id) {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM usuarios WHERE id = :usuario_id");
+            $stmt->bindParam(':usuario_id', $usuario_id);
+            $result = $stmt->execute();
+            return $result; // Retorna true si se eliminó correctamente
+        } catch (PDOException $e) {
+            error_log("Error al eliminar usuario: " . $e->getMessage());
+            return false; // Retorna false si ocurrió un error
+        }
+    }
+    
     
       // Cambiar contraseña
-      public function cambiarContrasena($usuario_id, $nuevaContrasena) {
+    public function cambiarContrasena($usuario_id, $nuevaContrasena) {
         try {
             $stmt = $this->db->prepare("UPDATE usuarios SET contrasena = :nuevaContrasena WHERE id = :usuario_id");
             $stmt->bindParam(':nuevaContrasena', $nuevaContrasena);
