@@ -138,7 +138,7 @@ switch ($uri) {
             // Mostrar la vista para cambiar la contraseña
             $controller->mostrarConfiguracionCambiarContrasena(); // Cambiado a $controller
             break;
-            
+
         case '/MoneyMinder/index.php/eliminarCuenta':
             $controller->mostrarEliminarCuenta();
             break;
@@ -149,8 +149,12 @@ switch ($uri) {
             } else {
                 echo "Método no permitido.";
             }
-            break;    
-    
+            break;
+
+    case '/MoneyMinder/index.php/preguntasFrecuentes':   
+            $controller->mostrarpreguntasFrecuentes();  
+            break; 
+            
     default:
         $controller->index();  // Mantén solo un default
         break;

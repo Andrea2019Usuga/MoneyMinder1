@@ -620,6 +620,14 @@ class UserController
         }
     }
     
+    public function mostrarpreguntasFrecuentes() {
+        if ($this->verificarSesion()) {
+            require VIEWS_PATH . '/preguntasFrecuentes.php';
+        } else {
+            $this->redirectToLogin();
+        }
+    }
+    
 
 }
 ?>
