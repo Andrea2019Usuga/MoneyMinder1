@@ -1,22 +1,17 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cambiar Contraseña</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
-
-    <!-- Enlace a las hojas de estilo CSS -->
-    <link rel="stylesheet" href="/MoneyMinder/public/css/configuracionCambiarContrasena.css">
-    <link rel="stylesheet" href="/MoneyMinder/public/css/cambiarContrasena.css">
-    
-    <!-- Enlace a los archivos JavaScript -->
-    <script src="/MoneyMinder/public/js/configuracionCambiarContrasena.js" defer></script>
-    <script src="/MoneyMinder/public/js/cambiarContrasena.js" defer></script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Configuración cambiar contraseña</title>
+<link rel="stylesheet" href="/MoneyMinder/public/css/configuracionCambiarContrasena.css">
+<script src="/MoneyMinder/public/js/configuracionCambiarContrasena.js"></script>
 </head>
+
+
 <body>
     <header>
-        <img src="/MoneyMinder/public/img/logo.jpeg" alt="Money Minder Logo" class="logo">
+    <img src="/MoneyMinder/public/img/logo.jpeg" alt="Money Minder Logo" class="logo">
     </header>
     <main>
         <aside class="sidebar">
@@ -24,16 +19,13 @@
             <a href="/MoneyMinder/index.php/menuPrincipalIngresos" class="menu-item">Ingresos</a>
             <a href="/MoneyMinder/index.php/gastos" class="menu-item">Gastos</a>
             <a href="/MoneyMinder/index.php/metasDeAhorro" class="menu-item">Metas de ahorro</a>
-            <a href="/MoneyMinder/index.php/tipsDeAhorro" class="menu-item">Tips de ahorro</a>
+            <a href="/MoneyMinder/index.php/tipsAhorro" class="menu-item">Tips de ahorro</a>
             <div class="dropdown">
-                <button class="menu-item selected dropdown-toggle" id="config-button" onclick="toggleDropdown()">
-                Configuración
-                    <i id="arrow" class="fas fa-chevron-down"></i>
-                </button>
-            <div class="dropdown-content" role="menu">
+                <button class="menu-item selected dropdown-toggle" onclick="toggleDropdown()">Configuración</button>
+                <div class="dropdown-content">
                     <a href="/MoneyMinder/index.php/configuracionCambiarContrasena" class="menu-item selected">Cambiar contraseña</a>
                     <a href="/MoneyMinder/index.php/eliminarCuenta" class="menu-item">Eliminar Cuenta</a>
-                    <a href="/MoneyMinder/index.php/soporteyAyuda" class="menu-item">Soporte y ayuda</a>
+                    <a href="/MoneyMinder/index.php/preguntasFrecuentes" class="menu-item">Preguntas frecuentes</a>
                 </div>
             </div>
         </aside>

@@ -109,9 +109,7 @@ function cerrarSesion() {
 }
 </script>
 
-<footer>
-    <p>© 2024 Money Minder</p>
-</footer>
+
 
 <script>
 function cerrarSesion() {
