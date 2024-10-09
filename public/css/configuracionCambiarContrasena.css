@@ -243,7 +243,6 @@ main {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     max-height: 400px; /* Altura máxima */
-    overflow: auto; /* Permitir scroll si es necesario */
 }
 
 /* Contenedor del formulario */
@@ -281,7 +280,8 @@ p {
 /* Etiquetas del formulario */
 form label {
     font-size: 14px; /* Tamaño de etiqueta */
-    color: #333;
+    color: #000000;
+    font-weight: bold;
     margin-bottom: 5px; /* Espacio entre etiqueta y campo */
     display: block;
 }

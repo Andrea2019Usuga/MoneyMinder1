@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Editar Ingreso</title>
     <link rel="stylesheet" href="/MoneyMinder/public/css/editarIngreso.css">
-    <script src="js/8editar ingreso.js" defer></script>
 </head>
 <body>
     <main>
