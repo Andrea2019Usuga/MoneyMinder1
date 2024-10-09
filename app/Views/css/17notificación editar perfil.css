@@ -1,0 +1,151 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+main {
+    display: flex;
+    flex: 1;
+}
+
+.left-side {
+    width: 50%;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+}
+
+.right-side {
+    width: 80%;
+    background: linear-gradient(to left, #B4A7D6, #F3E9FD, #ffffff);
+}
+
+.form-container {
+    width: 80%;
+    padding: 40px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; /* Centra el contenido horizontalmente */
+    margin: auto; /* Centra el contenedor verticalmente */
+    text-align: center;
+    font-size: 20px;
+}
+
+.logo-login {
+    margin-bottom: 20px; /* Espacio debajo del logo */
+    height: 80px; /* Ajusta la altura según sea necesario */
+    width: auto;
+    align-self: flex-start;
+}
+
+h1 {
+    margin-bottom: 30px;
+    font-size: 25px;
+    width: 100%;
+    text-align: center;
+}
+
+.background-paragraph {
+    background-color: #B4A7D6; /* Reemplaza con tu color deseado */
+    padding: 10px;
+    border-radius: 5px;
+    text-align: left;
+}
+
+.description-container {
+    display: flex;
+    flex-direction: column; /* Coloca los elementos en una columna */
+    align-items: flex-start; /* Alinea los elementos al inicio del contenedor (izquierda) */
+    text-align: left; /* Alinea el texto a la izquierda */
+    border: 1px solid #ffffff; /* Opcional: para ver el contenedor */
+    padding: 20px; /* Opcional: para añadir un poco de espacio alrededor del contenido */
+    background-color: #ffffff; /* Opcional: color de fondo */
+}
+
+.description {
+    margin-bottom: 20px; /* Espacio entre el párrafo y el formulario */
+    font-size: 1rem; /* Tamaño de fuente relativo */
+    width: 100%;
+    font-size: 20px;
+}   
+
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+form {
+    width: 100%;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #B4A7D6;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 15%;
+}
+
+button:hover {
+    background-color: #c58ae7;
+}
+
+
+/* Media Queries para diseño responsivo */
+@media (max-width: 1200px) {
+    .left-side {
+        width: 50%;
+    }
+    .right-side {
+        width: 50%;
+    }
+}
+
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+    .left-side, .right-side {
+        width: 100%;
+    }
+    .form-container {
+        width: 90%;
+    }
+}
+
+@media (max-width: 480px) {
+    .form-container {
+        width: 95%;
+        padding: 20px;
+    }
+    .logo-login {
+        height: 60px; /* Ajusta la altura según sea necesario */
+    }
+    h1 {
+        font-size: 20px;
+    }
+    .description {
+        font-size: 18px;
+    }
+    button {
+        font-size: 14px;
+    }
+}
