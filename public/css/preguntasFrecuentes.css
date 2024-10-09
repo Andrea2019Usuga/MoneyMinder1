@@ -16,7 +16,6 @@ header {
 .logo {
     max-width: 150px;
     margin-bottom: 10px;
-
 }
 
 /* Contenedor de preguntas frecuentes */
@@ -32,7 +31,7 @@ header {
 /* Título de la sección */
 h1 {
     text-align: center;
-    color: #000000;
+    color: #000000; /* Títulos en negro */
 }
 
 /* Elemento de pregunta */
@@ -48,20 +47,21 @@ h1 {
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    color: #000000;
+    color: #000000; /* Preguntas en negro */
 }
 
 /* Respuesta */
 .answer {
     display: none; /* Inicialmente oculta */
     padding-top: 10px;
-    color: #555;
+    color: #555; /* Respuestas en gris */
 }
 
 /* Flecha */
 .arrow {
     font-size: 18px;
     transition: transform 0.2s ease;
+    color: #000000; /* Flechas en negro */
 }
 
 /* Flecha animada */
@@ -72,4 +72,5 @@ h1 {
 /* Estilo para el texto de las respuestas */
 .answer p {
     margin: 0;
+    color: #555; /* Texto de respuestas en gris */
 }
