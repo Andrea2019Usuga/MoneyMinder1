@@ -273,8 +273,10 @@ h1 {
 
 .btn {
     padding: 10px 20px;
+    width: 60px; /* Define un ancho fijo */
+    height: 50px; /* Define una altura fija */
     border: none;
-    border-radius: 5px;
+    border-radius: 10px;
     cursor: pointer;
     text-decoration: none; /* Agrega esta línea para quitar la subrayado */
 }
@@ -283,12 +285,14 @@ h1 {
 .btn.no {
     background-color: #B4A7D6;
     color: #000000;
+    font-weight: bold;
 }
 
 
 .btn.yes {
     background-color: #B4A7D6;
     color: #000000;
+    font-weight: bold;
 }
 
 

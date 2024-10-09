@@ -31,7 +31,7 @@
         </aside>
         <section class="content">
             <h2>Cambiar Contraseña</h2>
-            <p>Por seguridad, es importante cambiar tu contraseña regularmente. Ingresa tu contraseña actual y luego introduce una nueva que tenga un mínimo de 8 caracteres y que sea diferente de la anterior.</p>
+            <p>Por seguridad, es importante cambiar tu contraseña regularmente. <br>Ingresa tu contraseña actual y luego introduce una nueva que tenga <br>un mínimo de 8 caracteres y que sea diferente de la anterior.</p>
             
             <form id="change-password-form" action="/MoneyMinder/index.php/cambiarContrasena" method="post">
                 <div class="form-group">

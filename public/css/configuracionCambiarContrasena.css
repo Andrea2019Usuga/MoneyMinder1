@@ -265,11 +265,12 @@ h2 {
 
 /* Estilo de los párrafos */
 p {
-    font-size: 16px; /* Tamaño de párrafo */
     color: #555;
-    margin-bottom: 10px; /* Reducir margen inferior */
-    text-align: center;
+    margin-bottom: 15px; /* Reducir margen inferior */
+    font-size: 16px;
+    line-height: 1.5;
 }
+
 
 /* Contenedor de los campos de formulario */
 .form-group {
