@@ -130,7 +130,16 @@ class UsersModel
         $query->execute();
         return $query->get_result()->fetch_assoc();
     }
+    // Método para obtener los ingresos de un usuario específico usando mysqli
+public function getIngresosByUserId($userId) {
+    $query = $this->db->prepare("SELECT * FROM ingresos WHERE usuario_id = ?");
+    $query->bind_param("i", $userId);  // "i" para un valor entero
+    $query->execute();
+    return $query->get_result()->fetch_all(MYSQLI_ASSOC);
+}
 
+    
+    
     // Método para eliminar un ingreso
     public function deleteIngreso($id) {
         $query = $this->db->prepare("DELETE FROM ingresos WHERE id = ?");

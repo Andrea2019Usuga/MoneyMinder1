@@ -12,6 +12,7 @@ class UserController
         session_start();
         $dbConnection = DB::getInstance();
         $this->model = new UsersModel($dbConnection);
+        $this->ingresoModel = new IngresoModel($dbConnection);  // Aquí instancias IngresoModel
         $this->verificarSesion(); // Verificar sesión en el constructor
     }
 
@@ -74,10 +75,12 @@ class UserController
         // Si no hay sesión ni cookie válida, retornar false
         return false;
     }
+
     public function mostrarInicioSesion() {
         // Lógica para mostrar el formulario de inicio de sesión
         include 'app/Views/inicioSesion.php'; // Suponiendo que tienes una vista de inicio de sesión
     }
+
     // Método para enviar correo para recordar contraseña
     public function recordarClave() {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -106,35 +109,36 @@ class UserController
         }
     }
 
+    // Método en el controlador que muestra el menú principal
     public function menuPrincipalIngresos() {
-        // Instanciamos el modelo de Ingresos
-        $ingresoModel = new IngresoModel();
-        
-        // Obtenemos los ingresos desde el modelo
-        $ingresos = $ingresoModel->getAllIngresos();
-        
-        // Pasamos los ingresos a la vista
-        require_once 'views/menuPrincipalIngresos.php';
+        if ($this->verificarSesion()) {
+            $ingresos = $this->ingresoModel->obtenerTodosLosIngresos();  // Obtener los ingresos
+            require_once VIEWS_PATH . '/menuPrincipalIngresos.php';  // Cargar la vista
+        } else {
+            $this->redirectToLogin();
+        }
     }
-// UserController.php
-    public function mostrarMenuPrincipalIngresos() {
-    // Verificar si el usuario está autenticado
-    if ($this->verificarSesion()) {
-        // Lógica para cargar la vista del menú principal de ingresos
-        require VIEWS_PATH . '/menuPrincipalIngresos.php';
-    } else {
-        // Redirigir al inicio de sesión si no está autenticado
-        $this->redirectToLogin();
-    }
-}
 
+    public function mostrarMenuPrincipalIngresos() {
+        if (isset($_SESSION['usuario_id'])) {
+            $usuario_id = $_SESSION['usuario_id'];
+            $ingresos = $this->ingresoModel->getIngresosByUserId($usuario_id);
+            require_once VIEWS_PATH . '/menuPrincipalIngresos.php';  // Asegúrate de incluir la vista aquí
+        } else {
+            header("Location: /MoneyMinder/index.php");  // Redirigir si no hay sesión
+            exit();
+        }
+    }
 
     // Cargar la vista de agregar ingreso
     public function agregarIngreso() {
         require VIEWS_PATH . '/agregarIngreso.php';
     }
 
-    // Guardar el ingreso en la base de datos
+    public function obtenerIngresos($usuario_id) {
+        return $this->ingresoModel->getIngresosByUserId($usuario_id);
+    }
+   
     public function guardarIngreso() {
         if ($this->verificarSesion()) {
             if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -144,26 +148,23 @@ class UserController
                 $mes = $_POST['mes'];
                 $anio = $_POST['año'];
                 $fecha = "$anio-$mes-$dia";
-
+    
                 // Validar campos vacíos
                 if (empty($nombre) || empty($monto) || empty($dia) || empty($mes) || empty($anio)) {
                     echo "Todos los campos son obligatorios.";
                     return;
                 }
-
+    
                 // Validar que el monto sea numérico
                 if (!is_numeric($monto)) {
                     echo "El monto debe ser un número válido.";
                     return;
                 }
-
-                // Obtener el ID del usuario autenticado desde la sesión
-                $usuario_id = $_SESSION['usuario_id'];
-
-                // Instanciar el modelo y guardar el ingreso usando la conexión existente
-                $ingresoModel = new IngresoModel($this->model->getDB());
-
-                if ($ingresoModel->guardarIngreso($usuario_id, $nombre, $monto, $fecha)) {
+    
+                $usuario_id = $_SESSION['usuario_id'];  // Obtener ID del usuario desde la sesión
+    
+                // Guardar ingreso en la base de datos
+                if ($this->ingresoModel->guardarIngreso($usuario_id, $nombre, $monto, $fecha)) {
                     header('Location: /MoneyMinder/index.php/menuPrincipalIngresos');
                     exit();
                 } else {
@@ -182,31 +183,25 @@ class UserController
         return $query->get_result()->fetch_all(MYSQLI_ASSOC);
     }
 
-    public function eliminarIngreso() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $id = $_POST['id'];
-            $ingresoModel = new IngresoModel($this->model->getDB());
-            if ($ingresoModel->eliminarIngreso($id)) {
-                header('Location: /MoneyMinder/index.php/menuPrincipalIngresos');
-                exit();
-            } else {
-                echo "Error al eliminar el ingreso.";
-            }
+    // Eliminar ingreso
+    public function eliminarIngreso($id) {
+        $stmt = $this->db->prepare("DELETE FROM ingresos WHERE id = :id");
+        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        if ($stmt->execute()) {
+            return $stmt->rowCount() > 0;  // Retorna verdadero si se eliminó al menos una fila
         }
+        return false;  // Retorna falso en caso de error
     }
 
     // Editar ingreso
     public function editarIngreso($id) {
-        // Obtener el ingreso por ID utilizando el modelo
-        $ingresoModel = new IngresoModel($this->model->getDB()); // Usa la conexión a la base de datos
-        $ingreso = $ingresoModel->getIngresoById($id);
-        
-        // Verificar si se encontró el ingreso
+        $ingresoModel = new IngresoModel($this->model->getDB());
+        $ingreso = $ingresoModel->getIngresoById($id);  // Obtener el ingreso por ID
+
+        // Si el ingreso existe, cargar la vista de edición
         if ($ingreso) {
-            // Cargar la vista de edición con los datos del ingreso
             require VIEWS_PATH . '/editarIngreso.php';
         } else {
-            // Mostrar un mensaje si no se encuentra el ingreso
             echo "Ingreso no encontrado.";
         }
     }
@@ -241,17 +236,18 @@ class UserController
         require VIEWS_PATH . '/crearCuenta.php';
     }
 
-   // Editar perfil
-   public function editarPerfil() {
-    if (isset($_SESSION['usuario_id'])) {
-        $userId = $_SESSION['usuario_id'];
-        $usuario = $this->model->getUserById($userId); 
-        require VIEWS_PATH . '/editarPerfil.php'; // Cargar la vista
-    } else {
-        header('Location: /MoneyMinder/index.php');
-        exit();
+    // Editar perfil
+    public function editarPerfil() {
+        if (isset($_SESSION['usuario_id'])) {
+            $userId = $_SESSION['usuario_id'];
+            $usuario = $this->model->getUserById($userId); 
+            require VIEWS_PATH . '/editarPerfil.php'; // Cargar la vista
+        } else {
+            header('Location: /MoneyMinder/index.php');
+            exit();
+        }
     }
-}
+
     public function guardarCambiosPerfil() {
         // Validar los datos del formulario
         $nombre = $_POST['nombre'];
@@ -266,7 +262,6 @@ class UserController
         header("Location: /MoneyMinder/index.php/inicioSesion");
         exit();
     }
-    
     
     public function actualizarPerfil() {
         if (isset($_SESSION['usuario_id'])) {
@@ -286,8 +281,6 @@ class UserController
             }
         }
     }
-    
-    
 
     // Cerrar sesión
     public function cerrarSesion() {
@@ -296,4 +289,23 @@ class UserController
         header("Location: /MoneyMinder/index.php/inicioSesion");
         exit();
     }
+
+    // Acción para cambiar contraseña
+    public function cambiarContrasena() {
+        // Lógica para mostrar la vista de cambiar contraseña
+        include 'views/cambiarContrasena.php';
+    }
+
+    // Acción para eliminar cuenta
+    public function eliminarCuenta() {
+        // Lógica para mostrar la vista de eliminar cuenta
+        include 'views/eliminarCuenta.php';
+    }
+
+    // Acción para mostrar la ayuda
+    public function soporteYayuda() {
+        // Lógica para mostrar la vista de soporte
+        include 'views/soporteYayuda.php';
+    }
 }
+?>

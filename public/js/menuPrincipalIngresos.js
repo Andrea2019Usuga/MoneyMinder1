@@ -61,3 +61,10 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+document.querySelector('.dropdown').addEventListener('mouseover', function() {
+    this.querySelector('.dropdown-content').style.display = 'block';
+});
+
+document.querySelector('.dropdown').addEventListener('mouseleave', function() {
+    this.querySelector('.dropdown-content').style.display = 'none';
+});

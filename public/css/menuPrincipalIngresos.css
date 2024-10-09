@@ -67,7 +67,6 @@ header .user-details button, header .user-details a {
     border-radius: 10px;
 }
 
-
 header .user-details button:hover, 
 header .user-details a:hover {
     background-color: #c58ae7; /* Color de fondo al pasar el mouse sobre los botones */
@@ -191,6 +190,33 @@ footer {
     border-radius: 4px !important;
 }
 
+/* Estilos para el menú desplegable */
+.config-options {
+    display: none; /* Ocultar las opciones inicialmente */
+    margin-left: 20px; /* Opcional: separación de las opciones */
+}
+
+/* Mostrar opciones al pasar el mouse sobre el contenedor del menú de configuración */
+.configuracion-menu:hover .config-options {
+    display: block;
+}
+
+/* Estilos para los enlaces de las opciones del menú */
+.config-options a {
+    display: block;
+    padding: 8px;
+    background-color: #e0e0e0;
+    color: black;
+    text-decoration: none;
+    margin-top: 5px;
+}
+
+/* Opcional: cambiar el color del enlace al pasar el mouse */
+.config-options a:hover {
+    background-color: #ccc;
+}
+
+
 /* Media Queries */
 @media (max-width: 768px) {
     .sidebar {
@@ -228,8 +254,6 @@ footer {
         justify-content: space-between;
         margin-bottom: 20px;
     }
-
-    
 
     .add-button {
         width: 50%;

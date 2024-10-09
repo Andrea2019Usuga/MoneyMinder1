@@ -60,20 +60,27 @@ switch ($uri) {
     case '/MoneyMinder/index.php/editarPerfil':
         $controller->editarPerfil();
         break;
-         case '/MoneyMinder/index.php/actualizarPerfil':
+    case '/MoneyMinder/index.php/actualizarPerfil':
         $controller->actualizarPerfil();
         break;
-        
     case '/MoneyMinder/index.php/cerrarSesion':  
         $controller->cerrarSesion();
         break;
-    // Agrega la ruta para guardar cambios de perfil
     case '/MoneyMinder/index.php/guardarCambiosPerfil':
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $controller->guardarCambiosPerfil();
         } else {
             echo "Método no permitido.";
         }
+        break;
+    case '/MoneyMinder/index.php/cambiarContrasena':
+        $controller->cambiarContrasena();
+        break;
+    case '/MoneyMinder/index.php/eliminarCuenta':
+        $controller->eliminarCuenta();
+        break;
+    case '/MoneyMinder/index.php/soporteYayuda':
+        $controller->soporteYayuda();
         break;
     default:
         $controller->index();

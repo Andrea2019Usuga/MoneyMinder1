@@ -15,34 +15,36 @@ class IngresoModel {
         return $stmt->execute([$usuario_id, $nombre, $monto, $fecha]);
     }
 
-    //sujeto a cambios 20-09-2024
+    // Método para obtener ingresos por ID de usuario
     public function getIngresosByUserId($userId) {
+        // Prepara la consulta
         $stmt = $this->db->prepare("SELECT * FROM ingresos WHERE usuario_id = :userId");
-        $stmt->bindParam(':userId', $userId, PDO::PARAM_INT);
+        
+        // Enlaza el parámetro
+        $stmt->bindValue(':userId', $userId, PDO::PARAM_INT);
+        
+        // Ejecuta la consulta
         $stmt->execute();
+        
+        // Retorna los resultados como un array asociativo
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
-     // Método para obtener todos los ingresos de la base de datos
-     public function getAllIngresos() {
-        // Usamos la conexión de la base de datos
-        $db = Database::getConnection();
-        
-        // Consulta SQL para obtener los ingresos
-        $query = "SELECT * FROM ingresos ORDER BY fecha DESC";  // Suponiendo que tienes la columna 'fecha'
-        
-        // Ejecutamos la consulta
-        $stmt = $db->query($query);
-        
-        // Retornamos los resultados
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    
     public function getIngresoById($id) {
         $stmt = $this->db->prepare("SELECT * FROM ingresos WHERE id = :id");
-        $stmt->bindParam(':id', $id, PDO::PARAM_INT);
+        $stmt->bindValue(':id', $id, PDO::PARAM_INT);
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
     
+    // Método para obtener todos los ingresos de la base de datos
+    public function obtenerTodosLosIngresos() {
+        $query = "SELECT * FROM ingresos";  // Consulta para obtener todos los ingresos
+        $stmt = $this->db->prepare($query);  // Preparar la consulta
+        $stmt->execute();  // Ejecutar la consulta
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);  // Devolver los ingresos como un array asociativo
+    }
+
     public function updateIngreso($id, $nombre, $monto, $fecha) {
         try {
             $stmt = $this->db->prepare("UPDATE ingresos SET nombre = :nombre, monto = :monto, fecha = :fecha WHERE id = :id");
@@ -74,6 +76,5 @@ class IngresoModel {
         print($id);
         return $stmt;
     }
-    
-
 }
+

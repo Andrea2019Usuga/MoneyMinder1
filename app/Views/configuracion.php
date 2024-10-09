@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Configuración idioma</title>
-<link rel="stylesheet" href="css/18configuracion idioma.css">
-<script src="js/18configuracion idioma.js"></script>
+<title>Configuración</title>
+<link rel="stylesheet" href="/MoneyMinder/public/css/configuracion.css">
+<script src="/MoneyMinder/public/js/configuracion.js" defer></script>
 </head>
 
 
@@ -20,17 +20,16 @@
             <a href="9gastos.html" class="menu-item">Gastos</a>
             <a href="12metas de ahorro.html" class="menu-item">Metas de ahorro</a>
             <a href="15tips de ahorro.html" class="menu-item">Tips de ahorro</a>
+            <a href="configuracion.html" class="menu-item">Configuración</a>
+
             
             <div class="dropdown">
-                <button class="menu-item selected dropdown-toggle" onclick="toggleDropdown()">Configuración</button>
-                <div class="dropdown-content">
-                    <a href="18configuracion idioma.html" class="menu-item selected">Idioma</a>
-                    <a href="19restablecer contraseña.html" class="menu-item">Restablecer contraseña</a>
-                    <a href="20cambiar contraseña.html" class="menu-item">Cambiar contraseña</a>
-                    <a href="21eliminar cuenta.html" class="menu-item">Eliminar Cuenta</a>
-                    <a href="23soporte y ayuda.html" class="menu-item">Soporte y ayuda</a>
-                </div>
-            </div>
+    <button class="menu-item selected dropdown-toggle" onclick="toggleDropdown()">Configuración</button>
+    <div class="dropdown-content">
+        <a href="index.php?controller=user&action=cambiarContrasena" class="menu-item">Cambiar contraseña</a>
+        <a href="index.php?controller=user&action=eliminarCuenta" class="menu-item">Eliminar Cuenta</a>
+        <a href="index.php?controller=support&action=soporteYayuda" class="menu-item">Soporte y ayuda</a>
+    </div>
         </aside>
         <section class="content">
             <div class="language-container">
