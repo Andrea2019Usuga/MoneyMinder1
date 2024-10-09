@@ -11,23 +11,23 @@
     <main>
         <div class="form-container">
             <h1>Editar Gasto</h1>
-            <form action="/MoneyMinder/index.php/actualizarIngreso" method="post">
-             <input type="hidden" name="id" value="<?php echo htmlspecialchars($ingreso['id']); ?>"> <!-- Campo oculto para el ID -->
+            <form action="/MoneyMinder/index.php/actualizarGasto" method="post">
+             <input type="hidden" name="id" value="<?php echo htmlspecialchars($gasto['id']); ?>"> <!-- Campo oculto para el ID -->
 
                  <div class="form-group">
-                  <label for="nombre">Nombre del Ingreso:</label>
-                  <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($ingreso['nombre']); ?>">
+                  <label for="nombre">Nombre del Gasto:</label>
+                  <input type="text" id="nombre" name="nombre" value="<?php echo htmlspecialchars($gasto['nombre']); ?>">
                 </div>
 
                <div class="form-group">
                   <label for="monto">Monto:</label>
-                 <input type="number" id="monto" name="monto" value="<?php echo htmlspecialchars($ingreso['monto']); ?>" min="0" step="0.01" required>
+                 <input type="number" id="monto" name="monto" value="<?php echo htmlspecialchars($gasto['monto']); ?>" min="0" step="0.01" required>
                  <small>Ingrese el monto (número general, sin formato especial).</small>
                 </div>
 
                <div class="form-group">
                  <label for="fecha">Fecha:</label>
-                 <input type="date" id="fecha" name="fecha" value="<?php echo htmlspecialchars($ingreso['fecha']); ?>">
+                 <input type="date" id="fecha" name="fecha" value="<?php echo htmlspecialchars($gasto['fecha']); ?>">
                 </div>
 
              <button type="submit" class="submit-button">Guardar</button>
