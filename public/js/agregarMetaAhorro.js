@@ -28,22 +28,30 @@ document.addEventListener('DOMContentLoaded', function() {
             return;
         }
 
-        // Validación de fechas
+        // Crear las fechas a partir de los campos de fecha
         const fechaInicio = new Date(añoInicio, mesInicio - 1, diaInicio);
         const fechaFin = new Date(añoFin, mesFin - 1, diaFin);
-        
+
+        // Validación de que la fecha de inicio sea 2024 o posterior
+        if (añoInicio < 2024) {
+            alert('La fecha de inicio debe ser en 2024 o más adelante.');
+            event.preventDefault();
+            return;
+        }
+
+        // Validación de que la fecha de fin sea 2025 o posterior
+        if (añoFin < 2025) {
+            alert('La fecha de fin debe ser en 2025 o más adelante.');
+            event.preventDefault();
+            return;
+        }
+
+        // Validación de que la fecha de inicio sea anterior a la fecha de fin
         if (fechaInicio >= fechaFin) {
             alert('La fecha de inicio debe ser anterior a la fecha de fin.');
             event.preventDefault();
             return;
         }
-
-        // Validación adicional de rango de fechas
-        const hoy = new Date();
-        if (fechaInicio < hoy) {
-            alert('La fecha de inicio debe ser una fecha futura.');
-            event.preventDefault();
-            return;
-        }
     });
 });
+
