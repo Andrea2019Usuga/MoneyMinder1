@@ -15,6 +15,8 @@ header {
 /* Logo */
 .logo {
     max-width: 150px;
+    margin-bottom: 10px;
+
 }
 
 /* Contenedor de preguntas frecuentes */
@@ -30,7 +32,7 @@ header {
 /* Título de la sección */
 h1 {
     text-align: center;
-    color: #333;
+    color: #000000;
 }
 
 /* Elemento de pregunta */
@@ -46,7 +48,7 @@ h1 {
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
-    color: #7A6EAB; /* Color morado más oscuro */
+    color: #000000;
 }
 
 /* Respuesta */
