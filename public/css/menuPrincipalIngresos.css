@@ -65,6 +65,7 @@ header .user-details button, header .user-details a {
     cursor: pointer;
     margin-top: 5px;
     border-radius: 10px;
+    font-size: 14px;
 }
 
 
