@@ -44,7 +44,7 @@ if (isset($_SESSION['usuario_id'])) {
     <section class="content">
         <h1>Metas de Ahorro</h1>
         <div class="search-bar">
-            <input type="text" placeholder="Buscar" class="search-input">
+        <input type="text" placeholder="Buscar" class="search-input" id="search-input" onkeyup="filterTable()">
             <a href="/MoneyMinder/index.php/agregarMetaAhorro" class="add-button">Agregar Meta de Ahorro</a>
         </div>
 
@@ -165,6 +165,32 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+</script>
+<script>
+function filterTable() {
+    const input = document.getElementById("search-input");
+    const filter = input.value.toLowerCase();
+    const table = document.querySelector(".data-table");
+    const rows = table.getElementsByTagName("tr");
+
+    for (let i = 1; i < rows.length; i++) { // Comienza desde 1 para omitir el encabezado
+        const cells = rows[i].getElementsByTagName("td");
+        let rowVisible = false;
+
+        for (let j = 0; j < cells.length; j++) {
+            const cell = cells[j];
+            if (cell) {
+                const textValue = cell.textContent || cell.innerText;
+                if (textValue.toLowerCase().indexOf(filter) > -1) {
+                    rowVisible = true;
+                    break;
+                }
+            }
+        }
+
+        rows[i].style.display = rowVisible ? "" : "none"; // Mostrar u ocultar la fila
+    }
+}
 </script>
     <footer>
         <p>© 2024 Money Minder</p>
