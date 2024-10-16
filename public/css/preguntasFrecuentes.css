@@ -1,20 +1,24 @@
 /* Estilo general del cuerpo */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
+    background-color: #ffffff;
     margin: 0;
     padding: 20px;
 }
 
 /* Estilo del encabezado */
-header {
-    text-align: center;
-    margin-bottom: 20px;
+.header {
+    width: 100%; /* El header ocupa todo el ancho */
+    display: flex;
+    justify-content: flex-start; /* Mueve el logo hacia la izquierda */
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
 }
 
 /* Logo */
 .logo {
-    max-width: 150px;
+    height: 80px;
     margin-bottom: 10px;
 }
 
@@ -73,4 +77,42 @@ h1 {
 .answer p {
     margin: 0;
     color: #555; /* Texto de respuestas en gris */
+}
+
+
+/* Estilos para dispositivos móviles */
+@media (max-width: 768px) {
+    .faq-container {
+        padding: 10px;
+    }
+
+    .question {
+        font-size: 14px;
+    }
+
+    .answer {
+        padding-top: 5px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        padding: 10px;
+    }
+
+    .logo {
+        height: 50px;
+    }
+
+    .faq-container {
+        padding: 5px;
+    }
+
+    .question {
+        font-size: 12px;
+    }
+
+    .answer {
+        padding-top: 2px;
+    }
 }
