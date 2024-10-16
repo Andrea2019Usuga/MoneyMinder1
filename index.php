@@ -29,6 +29,7 @@ switch ($uri) {
     case '/MoneyMinder/index.php/recuperarClave':
         $controller->recuperarClave();
         break;
+    
     case '/MoneyMinder/index.php/menuPrincipalIngresos':
         $controller->mostrarMenuPrincipalIngresos();
         break;
@@ -97,9 +98,22 @@ switch ($uri) {
     case '/MoneyMinder/index.php/editarPerfil':
         $controller->editarPerfil();
         break;
-    case '/MoneyMinder/index.php/cerrarSesion':  
-        $controller->cerrarSesion(); 
+    case '/MoneyMinder/index.php/actualizarPerfil':
+        $controller->actualizarPerfil();
         break;
+        
+    case '/MoneyMinder/index.php/cerrarSesion':  
+        $controller->cerrarSesion();
+        break;
+    // Agrega la ruta para guardar cambios de perfil
+    case '/MoneyMinder/index.php/guardarCambiosPerfil':
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $controller->guardarCambiosPerfil();
+        } else {
+            echo "Método no permitido.";
+        }
+        break;
+    
     case '/MoneyMinder/index.php/metasDeAhorro':
         $controller->metasDeAhorro();
         break; 

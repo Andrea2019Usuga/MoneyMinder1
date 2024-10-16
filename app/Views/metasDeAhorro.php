@@ -25,7 +25,7 @@ if (isset($_SESSION['usuario_id'])) {
     <div class="user-profile">
         <div class="user-details">
             <span><?php echo htmlspecialchars($username); ?></span>
-            <button onclick="window.location.href='/MoneyMinder/index.php/editarPerfil'">Editar Perfil</button>
+            <a href="/MoneyMinder/index.php/editarPerfil" class="add-button">Editar Perfil</a>
             <button type="button" onclick="cerrarSesion()">Cerrar Sesión</button>
         </div>
     </div>

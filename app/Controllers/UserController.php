@@ -194,6 +194,53 @@ class UserController
     public function crearCuenta() {
         require VIEWS_PATH . '/crearCuenta.php';
     }
+    // Editar perfil
+   public function editarPerfil() {
+    if (isset($_SESSION['usuario_id'])) {
+        $userId = $_SESSION['usuario_id'];
+        $usuario = $this->model->getUserById($userId); 
+        require VIEWS_PATH . '/editarPerfil.php'; // Cargar la vista
+    } else {
+        header('Location: /MoneyMinder/index.php');
+        exit();
+    }
+}
+    public function guardarCambiosPerfil() {
+        // Validar los datos del formulario
+        $nombre = $_POST['nombre'];
+        $email = $_POST['email'];
+        // Otros campos...
+    
+        // Guardar los cambios en la base de datos (puedes usar un modelo para esto)
+        $userModel = new UserModel();
+        $userModel->actualizarPerfil($nombre, $email);
+    
+        // Redirigir al inicio de sesión después de guardar los cambios
+        header("Location: /MoneyMinder/index.php/inicioSesion");
+        exit();
+    }
+    
+    
+    public function actualizarPerfil() {
+        if (isset($_SESSION['usuario_id'])) {
+            $userId = $_SESSION['usuario_id']; // El id del usuario
+            $nombre = $_POST['nombre']; // Recoge el nombre
+            $apellido = $_POST['apellido']; // Recoge el apellido
+            $correo_electronico = $_POST['correo_electronico']; // Recoge el correo
+            $fecha_nacimiento = $_POST['fecha-nacimiento']; // Recoge la fecha de nacimiento
+            
+            // Llamar a la función updateUser con los 5 parámetros
+            if ($this->model->updateUser($userId, $nombre, $apellido, $correo_electronico, $fecha_nacimiento)) {
+                $_SESSION['nombre_usuario'] = $nombre; // Actualizar el nombre en la sesión
+                header("Location: /MoneyMinder/index.php/inicioSesion");
+                exit();
+            } else {
+                echo "Error al actualizar el perfil.";
+            }
+        }
+    }
+    
+    
 
     public function recuperarClave() {
         require VIEWS_PATH . '/restablecerContrasena.php';
@@ -244,33 +291,6 @@ class UserController
         require VIEWS_PATH . '/menuPrincipalIngresos.php'; // Cargar la vista y pasarle los ingresos
     }
 
-    // Editar perfil
-    public function editarPerfil() {
-        require VIEWS_PATH . '/editarPerfil.php'; // Ajusta la ruta según tu estructura
-    }
-
-    public function actualizarPerfil() {
-        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-            $nombre = $_POST['nombre'];
-            $apellido = $_POST['apellido'];
-            $correo = $_POST['correo'];
-            $fechaNacimiento = $_POST['fecha-nacimiento'];
-    
-            // Validar que los campos no estén vacíos
-            if (empty($nombre) || empty($apellido) || empty($correo) || empty($fechaNacimiento)) {
-                echo "Todos los campos son obligatorios.";
-                return;
-            }
-    
-            // Actualizar el perfil en la base de datos
-            $usuario_id = $_SESSION['usuario_id'];
-            $this->model->actualizarPerfil($usuario_id, $nombre, $apellido, $correo, $fechaNacimiento);
-    
-            // Redirigir a una página de éxito
-            header('Location: /MoneyMinder/index.php/menuPrincipalIngresos');
-            exit();
-        }
-    }
     
    // Función para mostrar la vista de gastos
     public function mostrarGastos() {

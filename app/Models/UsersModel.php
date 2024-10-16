@@ -35,6 +35,21 @@ class UsersModel
         }
     }
 
+    // Método que consulta la clave asociada al correo ingresado y la envía por correo
+    public function sendPassword($correo) {
+        $stmt = $this->db->prepare('SELECT contrasena FROM usuarios WHERE correo_electronico = :email');
+        $stmt->bindParam(':email', $correo);
+        $stmt->execute();
+        $user = $stmt->fetch(PDO::FETCH_ASSOC);
+        print_r($user);
+        if (empty($user)) {
+            return null;
+        } else {
+            echo "envía la contraseña";
+            return $user;
+        }
+    }
+
     // Método para crear un nuevo usuario en la base de datos
     public function createUser($nombre, $apellido, $fechanacimiento, $correo, $clave) {
         try {
@@ -67,6 +82,29 @@ class UsersModel
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+     // Método para obtener los datos de un usuario desde la base de datos utilizando su id único
+    public function getUserById($userId) {
+        $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE id = ?");
+        $stmt->execute([$userId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Actualización de datos de usuario
+    public function updateUser($userId, $nombre, $apellido, $correo_electronico, $fecha_nacimiento)
+    {
+        $sql = "UPDATE usuarios SET nombre = :nombre, apellido = :apellido, correo_electronico = :correo_electronico, fecha_nacimiento = :fecha_nacimiento WHERE id = :id";
+    
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->bindParam(':apellido', $apellido);
+        $stmt->bindParam(':correo_electronico', $correo_electronico);
+        $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
+        $stmt->bindParam(':id', $userId); // Asegúrate de que el ID del usuario sea correcto
+    
+        return $stmt->execute();
+    }
+
+    
 
     // Método para guardar el token de "Recordar sesión"
     public function guardarToken($usuarioId, $token) {
