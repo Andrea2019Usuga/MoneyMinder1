@@ -3,19 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Menú Principal Ingresos</title>
-    <link rel="stylesheet" href="/MoneyMinder/public/css/menuPrincipalIngresos.css">
+    <title>Gastos</title>
+    <link rel="stylesheet" href="/MoneyMinder/public/css/gastos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-    <script src="/MoneyMinder/public/js/menuPrincipalIngresos.js"></script>
-    
+    <script src="/MoneyMinder/public/js/gastos.js"></script>
 </head>
 <body>
-
 <?php
 //porcion de codigo para guardar el nombre de usuario
 if (isset($_SESSION['usuario_id'])) {
-    //asignar a variable|   
+    //asignar a variable
     $userid = $_SESSION['usuario_id'];
     $username= $_SESSION['nombre_usuario'];
 }
@@ -23,9 +21,8 @@ if (isset($_SESSION['usuario_id'])) {
 
     <header>
         <img src="/MoneyMinder/public/img/logo.jpeg" alt="Money Minder Logo" class="logo">
-        
+         
         <div class="user-profile">
-            
             <div class="user-details">
                 <span><?php echo ($username)?></span>
                 <a href="/MoneyMinder/index.php/editarPerfil" class="add-button">Editar Perfil</a>
@@ -36,17 +33,17 @@ if (isset($_SESSION['usuario_id'])) {
     <main>
         <aside class="sidebar">
             <button class="menu-item selected no-pointer">Menú principal</button>
-            <a href="/MoneyMinder/index.php/menuPrincipalIngresos" class="menu-item selected">Ingresos</a>
-            <a href="/MoneyMinder/index.php/gastos" class="menu-item">Gastos</a>
+            <a href="/MoneyMinder/index.php/menuPrincipalIngresos" class="menu-item">Ingresos</a>
+            <a href="/MoneyMinder/index.php/gastos" class="menu-item selected">Gastos</a>
             <a href="/MoneyMinder/index.php/metasDeAhorro" class="menu-item">Metas de ahorro</a>
             <a href="/MoneyMinder/index.php/tipsAhorro" class="menu-item">Tips de ahorro</a>
             <a href="/MoneyMinder/index.php/configuracionCambiarContrasena" class="menu-item">Configuración</a>
         </aside>
         <section class="content">
-            <h1>Ingresos</h1>
+            <h1>Gastos</h1>
             <div class="search-bar">
             <input type="text" placeholder="Buscar" class="search-input" id="search-input" onkeyup="filterTable()">
-                <a href="/MoneyMinder/index.php/agregarIngreso" class="add-button">Agregar ingreso</a>
+                <a href="/MoneyMinder/index.php/agregarGasto" class="add-button">Agregar gastos</a>
             </div>
             <table class="data-table">
                 <thead>
@@ -58,22 +55,23 @@ if (isset($_SESSION['usuario_id'])) {
                     </tr>
                 </thead>
                 <tbody>
-                    <?php if (isset($ingresos) && is_array($ingresos)): ?>
-                        <?php foreach ($ingresos as $ingreso): ?>
+                    <?php if (isset($gastos) && is_array($gastos)): ?>
+                        <?php foreach ($gastos as $gasto): ?>
                             <tr>
-                                <td><?php echo htmlspecialchars($ingreso['nombre']); ?></td>
-                                <td><?php echo htmlspecialchars($ingreso['monto']); ?></td>
-                                <td><?php echo htmlspecialchars($ingreso['fecha']); ?></td>
+                                <td><?php echo htmlspecialchars($gasto['nombre']); ?></td>
+                                <td><?php echo htmlspecialchars($gasto['monto']); ?></td>
+                                <td><?php echo htmlspecialchars($gasto['fecha']); ?></td>
                                 <td>
-                                    
-                                    <form action="/MoneyMinder/index.php/editarIngreso" method="get" style="display: inline-block;">
-                                        <input type="hidden" name="id" value="<?php echo $ingreso['id']; ?>">
+                                
+                                   
+                                    <form action="/MoneyMinder/index.php/editarGasto" method="get" style="display: inline-block;">
+                                        <input type="hidden" name="id" value="<?php echo $gasto['id']; ?>">
                                         <button class="edit-button" type="submit">✏️</button>
                                     </form>
 
                                    
-                                    <form action="/MoneyMinder/index.php/eliminarIngreso" method="post" style="display: inline-block;">
-                                        <input type="hidden" name="id" value=<?php echo $ingreso['id']; ?> />
+                                    <form action="/MoneyMinder/index.php/eliminarGasto" method="post"style="display: inline-block;">
+                                        <input type="hidden" name="id" value=<?php echo $gasto['id']; ?> />
                                         <button class='delete-button' type="submit">🗑️</button>
                                     </form>
                                 </td>
@@ -81,14 +79,13 @@ if (isset($_SESSION['usuario_id'])) {
                         <?php endforeach; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="4">No hay ingresos disponibles.</td>
+                            <td colspan="4">No hay gastos disponibles.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
             </table>
         </section>
     </main>
-
 <script>
 function cerrarSesion() {
     Swal.fire({
@@ -126,7 +123,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 form.submit();
                 Swal.fire(
                     'Eliminado!',
-                    'El ingreso ha sido eliminado.',
+                    'El gasto ha sido eliminado.',
                     'success'
                 );
             }
@@ -170,11 +167,8 @@ function filterTable() {
     }
 }
 </script>
-
-
     <footer>
         <p>© 2024 Money Minder</p>
     </footer>
 </body>
 </html>
-

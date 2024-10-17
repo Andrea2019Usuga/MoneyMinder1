@@ -83,6 +83,29 @@ class UsersModel
         $stmt->execute();
         return $stmt->fetch(PDO::FETCH_ASSOC);
     }
+     // Método para obtener los datos de un usuario desde la base de datos utilizando su id único
+    public function getUserById($userId) {
+        $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE id = ?");
+        $stmt->execute([$userId]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // Actualización de datos de usuario
+    public function updateUser($userId, $nombre, $apellido, $correo_electronico, $fecha_nacimiento)
+    {
+        $sql = "UPDATE usuarios SET nombre = :nombre, apellido = :apellido, correo_electronico = :correo_electronico, fecha_nacimiento = :fecha_nacimiento WHERE id = :id";
+    
+        $stmt = $this->db->prepare($sql);
+        $stmt->bindParam(':nombre', $nombre);
+        $stmt->bindParam(':apellido', $apellido);
+        $stmt->bindParam(':correo_electronico', $correo_electronico);
+        $stmt->bindParam(':fecha_nacimiento', $fecha_nacimiento);
+        $stmt->bindParam(':id', $userId); // Asegúrate de que el ID del usuario sea correcto
+    
+        return $stmt->execute();
+    }
+
+    
 
     // Método para obtener los datos de un usuario desde la base de datos utilizando su id único
     public function getUserById($userId) {
@@ -137,5 +160,70 @@ class UsersModel
         $query->bind_param('i', $id);
         return $query->execute();
     }
+<<<<<<< HEAD
 }
 ?>
+=======
+    
+    // Método para eliminar un usuario por su ID
+    public function deleteUser($usuario_id) {
+        try {
+            $stmt = $this->db->prepare("DELETE FROM usuarios WHERE id = :usuario_id");
+            $stmt->bindParam(':usuario_id', $usuario_id);
+            $result = $stmt->execute();
+            return $result; // Retorna true si se eliminó correctamente
+        } catch (PDOException $e) {
+            error_log("Error al eliminar usuario: " . $e->getMessage());
+            return false; // Retorna false si ocurrió un error
+        }
+    }
+    
+    
+      // Cambiar contraseña
+    public function cambiarContrasena($usuario_id, $nuevaContrasena) {
+        try {
+            $stmt = $this->db->prepare("UPDATE usuarios SET contrasena = :nuevaContrasena WHERE id = :usuario_id");
+            $stmt->bindParam(':nuevaContrasena', $nuevaContrasena);
+            $stmt->bindParam(':usuario_id', $usuario_id);
+            return $stmt->execute();
+        } catch (PDOException $e) {
+            // Manejar error de base de datos
+            error_log("Error al cambiar contraseña: " . $e->getMessage());
+            return false;
+        }
+    }
+
+    // Obtener usuario por ID
+    public function obtenerUsuarioPorId($usuario_id) {
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE id = :usuario_id");
+            $stmt->bindParam(':usuario_id', $usuario_id);
+            $stmt->execute();
+            return $stmt->fetch(PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            error_log("Error al obtener usuario: " . $e->getMessage());
+            return null;
+        }
+    }
+
+    // Verificar si el usuario existe
+    public function verificarUsuario($email, $contrasena) {
+        try {
+            $stmt = $this->db->prepare("SELECT * FROM usuarios WHERE email = :email");
+            $stmt->bindParam(':email', $email);
+            $stmt->execute();
+            $usuario = $stmt->fetch(PDO::FETCH_ASSOC);
+
+            if ($usuario && password_verify($contrasena, $usuario['contrasena'])) {
+                return $usuario; // Retorna el usuario si las credenciales son válidas
+            }
+            return null; // Credenciales inválidas
+        } catch (PDOException $e) {
+            error_log("Error al verificar usuario: " . $e->getMessage());
+            return null;
+        }
+    }
+
+}
+?>
+>>>>>>> 2099
