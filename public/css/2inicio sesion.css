@@ -1,0 +1,177 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+header {
+    display: flex;
+    justify-content: flex-start;
+    padding: 10px;
+    background-color: white;
+}
+
+header .logo-container {
+    display: flex;
+    align-items: center;
+}
+
+header .logo {
+    height: 50px;
+    width: auto;
+}
+
+main {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+}
+
+.form-container {
+    width: 50%;
+    padding: 40px;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+}
+
+.logo-login {
+    margin-bottom: 20px;
+    height: 80px;
+    width: auto;
+    align-self: flex-start;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+form {
+    width: 100%;
+}
+
+form label {
+    display: block;
+    margin-top: 10px;
+}
+
+form input {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.button-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+form button {
+    width: 30%;
+    padding: 10px;
+    background-color: #B4A7D6;
+    color: #000000;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+form button:hover {
+    background-color: #c58ae7;
+}
+
+.remember-forgot {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.checkbox-container input[type="checkbox"] {
+    margin-right: 5px;
+}
+
+.remember-forgot a {
+    color: #000000;
+    text-decoration: none;
+    margin-top: 10px;
+}
+
+.remember-forgot a:hover {
+    text-decoration: underline;
+}
+
+.side-background {
+    width: 50%;
+    height: 100vh;
+    background: linear-gradient(to left, #B4A7D6, #F3E9FD, #ffffff);
+}
+
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+    main {
+        flex-direction: column;
+    }
+
+    .form-container,
+    .side-background {
+        width: 100%;
+        height: auto;
+    }
+
+    .form-container {
+        padding: 20px;
+    }
+
+    .button-container {
+        width: 100%;
+    }
+
+    form button {
+        width: 50%;
+    }
+}
+
+@media (max-width: 480px) {
+    .logo-login {
+        height: 60px;
+    }
+
+    form button {
+        width: 70%;
+    }
+
+    .button-container {
+        width: 100%;
+    }
+
+    .form-container {
+        padding: 10px;
+    }
+}

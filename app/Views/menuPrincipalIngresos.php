@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Menú Principal Ingresos</title>
-    <link rel="stylesheet" href="/MoneyMinder/public/css/menuPrincipalIngresos.css">
+    <link rel="stylesheet" href="/MoneyMinder/public/css/6menu principal ingresos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="/MoneyMinder/public/js/menuPrincipalIngresos.js"></script>
@@ -36,16 +36,16 @@ if (isset($_SESSION['usuario_id'])) {
     <main>
         <aside class="sidebar">
             <button class="menu-item selected no-pointer">Menú principal</button>
-            <a href="/MoneyMinder/index.php/menuPrincipalIngresos" class="menu-item selected">Ingresos</a>
-            <a href="/MoneyMinder/index.php/gastos" class="menu-item">Gastos</a>
-            <a href="/MoneyMinder/index.php/metasDeAhorro" class="menu-item">Metas de ahorro</a>
-            <a href="/MoneyMinder/index.php/tipsAhorro" class="menu-item">Tips de ahorro</a>
-            <a href="/MoneyMinder/index.php/configuracionCambiarContrasena" class="menu-item">Configuración</a>
+            <a href="6menu principal ingresos.html" class="menu-item selected">Ingresos</a>
+            <a href="9gastos.html" class="menu-item">Gastos</a>
+            <a href="12metas de ahorro.html" class="menu-item">Metas de ahorro</a>
+            <a href="15tips de ahorro.html" class="menu-item">Tips de ahorro</a>
+            <a href="18configuracion idioma.html" class="menu-item">Configuración</a>
         </aside>
         <section class="content">
             <h1>Ingresos</h1>
             <div class="search-bar">
-            <input type="text" placeholder="Buscar" class="search-input" id="search-input" onkeyup="filterTable()">
+                <input type="text" placeholder="Buscar" class="search-input">
                 <a href="/MoneyMinder/index.php/agregarIngreso" class="add-button">Agregar ingreso</a>
             </div>
             <table class="data-table">
@@ -72,7 +72,7 @@ if (isset($_SESSION['usuario_id'])) {
                                     </form>
 
                                    
-                                    <form action="/MoneyMinder/index.php/eliminarIngreso" method="post" style="display: inline-block;">
+                                    <form action="/MoneyMinder/index.php/eliminarIngreso" method="post">
                                         <input type="hidden" name="id" value=<?php echo $ingreso['id']; ?> />
                                         <button class='delete-button' type="submit">🗑️</button>
                                     </form>
@@ -89,25 +89,11 @@ if (isset($_SESSION['usuario_id'])) {
         </section>
     </main>
 
-<script>
-function cerrarSesion() {
-    Swal.fire({
-        title: '¿Estás seguro?',
-        text: "Vas a cerrar tu sesión.",
-        icon: 'warning',
-        showCancelButton: true,
-        confirmButtonColor: '#b4a7d6',
-        cancelButtonColor: '#b4a7d6',
-        confirmButtonText: 'Sí, cerrar sesión',
-        cancelButtonText: 'Cancelar'
-    }).then((result) => {
-        if (result.isConfirmed) {
-            // Redirigir a la ruta de cierre de sesión
-            window.location.href = '/MoneyMinder/index.php/cerrarSesion';
-        }
-    });
-}
-</script>
+    <script>
+    function cerrarSesion() {
+        window.location.href = 'http://localhost/MoneyMinder/index.php';
+    }
+    </script>
 <script>
 document.addEventListener('DOMContentLoaded', function () {
     function confirmDelete(id, form) {
@@ -116,8 +102,8 @@ document.addEventListener('DOMContentLoaded', function () {
             text: "Esta acción no se puede deshacer.",
             icon: 'warning',
             showCancelButton: true,
-            confirmButtonColor: '#b4a7d6',
-            cancelButtonColor: '#b4a7d6',
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
             confirmButtonText: 'Sí, eliminar',
             cancelButtonText: 'Cancelar'
         }).then((result) => {
@@ -144,33 +130,6 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 });
 </script>
-<script>
-function filterTable() {
-    const input = document.getElementById("search-input");
-    const filter = input.value.toLowerCase();
-    const table = document.querySelector(".data-table");
-    const rows = table.getElementsByTagName("tr");
-
-    for (let i = 1; i < rows.length; i++) { // Comienza desde 1 para omitir el encabezado
-        const cells = rows[i].getElementsByTagName("td");
-        let rowVisible = false;
-
-        for (let j = 0; j < cells.length; j++) {
-            const cell = cells[j];
-            if (cell) {
-                const textValue = cell.textContent || cell.innerText;
-                if (textValue.toLowerCase().indexOf(filter) > -1) {
-                    rowVisible = true;
-                    break;
-                }
-            }
-        }
-
-        rows[i].style.display = rowVisible ? "" : "none"; // Mostrar u ocultar la fila
-    }
-}
-</script>
-
 
     <footer>
         <p>© 2024 Money Minder</p>

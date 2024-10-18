@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Crear Cuenta</title>
-    <link rel="stylesheet" href="/MoneyMinder/public/css/crearCuenta.css" />
+    <link rel="stylesheet" href="/MoneyMinder/public/css/3crear cuenta.css" />
     
   </head>
   <body>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Iniciar Sesión - Money Minder</title>
-    <link rel="stylesheet" href="/MoneyMinder/public/css/inicioSesion.css">
+    <link rel="stylesheet" href="/MoneyMinder/public/css/2inicio sesion.css">
 </head>
 <body>
     <main>
